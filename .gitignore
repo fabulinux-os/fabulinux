@@ -1,0 +1,22 @@
+# Artefatos de build da distro
+*.iso
+*.img
+*.squashfs
+build/
+out/
+work/
+cache/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Temporários
+*.log
+*.tmp

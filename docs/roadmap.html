@@ -1,0 +1,506 @@
+<title>Distro para Criativos — Roadmap & Pacote de Apps</title>
+<style>
+  :root {
+    /* Fabulita — fonte da verdade da marca */
+    --navy: #081F36;
+    --navy-deep: #05172a;
+    --ametista: #9B59B6;
+    --roxo: #65498C;
+    --lavanda: #F3E4F5;
+    --verde: #2ECC71;
+    --dourado: #DC8F38;
+
+    /* neutros com viés roxo (escolhidos, não herdados) */
+    --ink: #241E33;
+    --muted: #786C8A;
+    --line: #E7DCEE;
+    --card: #FBF7FD;
+    --bg: #FCFAFE;
+    --bg-2: #F5EEF9;
+
+    --ground: var(--bg);
+    --surface: var(--card);
+    --text: var(--ink);
+    --text-muted: var(--muted);
+    --border: var(--line);
+    --accent: var(--ametista);
+    --accent-2: var(--roxo);
+    --tint: var(--lavanda);
+
+    --serif: "Marcellus", "Cambria", Georgia, "Times New Roman", serif;
+    --sans: "Montserrat", "Calibri", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --maxw: 1080px;
+    --r: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0b1526;
+      --bg-2: #10203a;
+      --surface: #122139;
+      --text: #EFE7F5;
+      --text-muted: #A99DBC;
+      --border: #223350;
+      --accent: #C48BDE;
+      --accent-2: #B79AD6;
+      --tint: #1a2c48;
+      --card: #122139;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0b1526;
+    --bg-2: #10203a;
+    --surface: #122139;
+    --text: #EFE7F5;
+    --text-muted: #A99DBC;
+    --border: #223350;
+    --accent: #C48BDE;
+    --accent-2: #B79AD6;
+    --tint: #1a2c48;
+    --card: #122139;
+  }
+  :root[data-theme="light"] {
+    --ground: #FCFAFE;
+    --bg-2: #F5EEF9;
+    --surface: #FBF7FD;
+    --text: #241E33;
+    --text-muted: #786C8A;
+    --border: #E7DCEE;
+    --accent: #9B59B6;
+    --accent-2: #65498C;
+    --tint: #F3E4F5;
+    --card: #FBF7FD;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+
+  .page {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* ---- diamond motif ---- */
+  .dia::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    margin-right: 10px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; letter-spacing: .005em; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background:
+      radial-gradient(1100px 500px at 78% -12%, rgba(155,89,182,.34), transparent 60%),
+      radial-gradient(700px 420px at 8% 118%, rgba(101,73,140,.30), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #F4ECF7;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .hero .wrap { padding-top: 74px; padding-bottom: 78px; }
+  .hero .eyebrow { color: #D9B6E8; }
+  .hero-diamonds { display:flex; gap:9px; margin-bottom: 26px; }
+  .hero-diamonds i { width:9px; height:9px; transform:rotate(45deg); display:block; }
+  .hero-diamonds i:nth-child(1){ background:var(--lavanda); }
+  .hero-diamonds i:nth-child(2){ background:var(--ametista); }
+  .hero-diamonds i:nth-child(3){ background:var(--dourado); }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5.6vw, 4.15rem);
+    line-height: 1.04;
+    margin: 16px 0 0;
+    color: #FBF6FD;
+  }
+  .hero .mote {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-weight: 500;
+    color: #EAD3F3;
+    margin: 18px 0 0;
+    letter-spacing: .01em;
+  }
+  .hero .thesis {
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    font-style: italic;
+    color: #E4CDEE;
+    max-width: 30ch;
+    margin: 24px 0 0;
+    line-height: 1.4;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 14px 34px;
+    margin-top: 42px; padding-top: 26px;
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .hero-meta div { min-width: 120px; }
+  .hero-meta .k { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #B892CC; }
+  .hero-meta .v { font-family: var(--serif); font-size: 1.05rem; color: #F0E3F6; margin-top: 4px; }
+
+  /* ---------- SECTION ---------- */
+  section { padding: 66px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .sec-head { margin-bottom: 38px; }
+  .sec-head h2 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); margin: 12px 0 0; }
+  .sec-head p { color: var(--text-muted); max-width: 62ch; margin: 14px 0 0; font-size: 1.02rem; }
+
+  /* ---------- PILLARS ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 24px 22px;
+  }
+  .pillar .n {
+    font-family: var(--serif); font-size: 1.4rem; color: var(--accent);
+    display:flex; align-items:center; gap:12px; margin-bottom: 12px;
+  }
+  .pillar .n b { font-weight:400; }
+  .pillar h3 { font-size: 1.15rem; margin: 0 0 8px; color: var(--text); }
+  .pillar p { margin: 0; color: var(--text-muted); font-size: .95rem; }
+
+  /* ---------- APP SUITE ---------- */
+  .cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .cat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 22px 8px;
+    display: flex; flex-direction: column;
+  }
+  .cat.wide { grid-column: 1 / -1; }
+  .cat > h3 {
+    font-size: 1.22rem; margin: 0 0 4px; color: var(--text);
+    display: flex; align-items: center;
+  }
+  .cat > .lead { color: var(--text-muted); font-size: .9rem; margin: 0 0 14px; }
+
+  .app { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 13px 0; border-top: 1px solid var(--border); align-items: baseline; }
+  .app:first-of-type { border-top: 0; }
+  .app .name { font-weight: 600; color: var(--text); font-size: 1rem; }
+  .app .desc { grid-column: 1 / -1; color: var(--text-muted); font-size: .88rem; line-height: 1.5; }
+  .eq {
+    justify-self: end;
+    font-size: .74rem; letter-spacing: .01em;
+    color: var(--accent-2);
+    background: var(--tint);
+    border: 1px solid var(--border);
+    padding: 3px 9px; border-radius: 999px;
+    white-space: nowrap; font-weight: 600;
+  }
+  .app .name .star { color: var(--dourado); font-size: .8em; margin-left: 6px; letter-spacing: .1em; font-weight:700; }
+
+  .legend { display:flex; flex-wrap:wrap; gap: 18px; margin-top: 22px; color: var(--text-muted); font-size: .84rem; }
+  .legend span { display:inline-flex; align-items:center; gap:8px; }
+  .legend .swatch { width:9px; height:9px; transform:rotate(45deg); display:inline-block; }
+
+  /* ---------- DECISION ---------- */
+  .decision {
+    background: var(--tint);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 30px 30px 26px;
+  }
+  .decision .badge {
+    display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    font-weight:700; color: #fff; background: var(--accent); padding: 5px 12px; border-radius: 999px;
+  }
+  .decision h3 { font-size: 1.5rem; margin: 16px 0 10px; }
+  .decision p { color: var(--text-muted); margin: 0 0 16px; max-width: 70ch; }
+  .decision p .hl { color: var(--text); font-weight: 600; }
+  .vs { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+  .vs .col { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .vs .col.pick { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .vs .col h4 { font-family: var(--serif); font-weight:400; font-size: 1.15rem; margin: 0 0 4px; color: var(--text); display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .vs .col .tag { font-family: var(--sans); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; padding:3px 8px; border-radius:999px; }
+  .vs .pick .tag { background: var(--accent); color:#fff; }
+  .vs .alt .tag { background: var(--border); color: var(--text-muted); }
+  .vs ul { margin: 8px 0 0; padding-left: 18px; color: var(--text-muted); font-size: .9rem; }
+  .vs li { margin: 5px 0; }
+
+  /* ---------- ROADMAP ---------- */
+  .phases { display: grid; gap: 0; }
+  .phase {
+    display: grid; grid-template-columns: 64px 1fr; gap: 22px;
+    padding: 22px 0; border-top: 1px solid var(--border);
+  }
+  .phase:first-child { border-top: 0; }
+  .phase .idx {
+    font-family: var(--serif); font-size: 1.9rem; color: var(--accent);
+    line-height: 1; padding-top: 2px;
+  }
+  .phase h3 { font-size: 1.2rem; margin: 0 0 6px; color: var(--text); }
+  .phase p { margin: 0; color: var(--text-muted); font-size: .95rem; }
+  .phase .tools { margin-top: 8px; font-size: .82rem; color: var(--accent-2); }
+
+  /* ---------- CLOSE ---------- */
+  .close { background: var(--navy); color:#EAD9F1; }
+  .close .wrap { padding: 60px 28px; }
+  .close .eyebrow { color: #D9B6E8; }
+  .close h2 { color: #FBF6FD; font-size: clamp(1.6rem,3vw,2.2rem); margin: 12px 0 14px; }
+  .close p { color: #CDB4DA; max-width: 60ch; }
+  .close .q { display:grid; gap: 12px; margin-top: 26px; }
+  .close .q div {
+    background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .close .q b { color: #F3E4F5; font-family: var(--serif); font-weight:400; font-size:1.05rem; }
+  .close .q span { display:block; color:#C1A3D0; font-size:.9rem; margin-top:4px; }
+  .brandline { margin-top: 34px; padding-top: 20px; border-top:1px solid rgba(255,255,255,.12); font-size:.82rem; color:#A98BBB; display:flex; align-items:center; gap:10px; }
+  .brandline i { width:7px;height:7px;transform:rotate(45deg);background:var(--ametista);display:inline-block; }
+
+  @media (max-width: 560px) {
+    .app { grid-template-columns: 1fr; }
+    .eq { justify-self: start; }
+    .vs { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 44px 1fr; gap: 16px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(12px); animation: rise .7s ease forwards; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+</style>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap reveal">
+      <div class="hero-diamonds"><i></i><i></i><i></i></div>
+      <div class="eyebrow">Projeto de distribuição Linux &middot; open source</div>
+      <h1 style="letter-spacing:.01em">Fabulinux</h1>
+      <p class="mote">O Linux mais bem lapidado para você que quer criar.</p>
+      <p class="thesis">“Acolher o usuário Mac num universo Linux — bonito, simples e sem terminal.”</p>
+      <div class="hero-meta">
+        <div><div class="k">Público</div><div class="v">Criativos</div></div>
+        <div><div class="k">Base técnica</div><div class="v">Ubuntu LTS</div></div>
+        <div><div class="k">Promessa</div><div class="v">Zero terminal</div></div>
+        <div><div class="k">Posição</div><div class="v">Alternativa ao MacBook</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PILARES -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow dia">A sensação Mac</div>
+        <h2>Cinco coisas que precisam estar perfeitas</h2>
+        <p>Quem vem do Mac não sente falta do macOS em si — sente falta de cinco experiências concretas. É nelas que a distro ganha ou perde a percepção de polimento.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="n"><b>◇</b></div>
+          <h3>Coerência visual absoluta</h3>
+          <p>Um único tema, um set de ícones, tipografia consistente e animações suaves. Nada de app bonito ao lado de app feio — isso é 80% da sensação de qualidade.</p>
+        </div>
+        <div class="pillar">
+          <div class="n"><b>◇</b></div>
+          <h3>Dock + Spotlight</h3>
+          <p>Uma dock elegante embaixo e uma busca universal que abre com um atalho (⌘+Espaço). Encontra apps, arquivos e ações num piscar.</p>
+        </div>
+        <div class="pillar">
+          <div class="n"><b>◇</b></div>
+          <h3>Gestos de trackpad</h3>
+          <p>Três dedos para ver todas as janelas, deslizar entre áreas de trabalho, pinçar para zoom. Fluido e natural — como no MacBook.</p>
+        </div>
+        <div class="pillar">
+          <div class="n"><b>◇</b></div>
+          <h3>Memória muscular do teclado</h3>
+          <p>A tecla ⌘ mapeada para os atalhos que a pessoa já conhece: ⌘+C, ⌘+V, ⌘+Espaço, ⌘+Tab. O detalhe que quase nenhuma distro acerta.</p>
+        </div>
+        <div class="pillar">
+          <div class="n"><b>◇</b></div>
+          <h3>“Só funciona”</h3>
+          <p>Impressora, tela em alta resolução, gestão de cor (ICC) e fontes prontas. O criativo abre o notebook e já começa a trabalhar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACOTE DE APPS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow dia">O pacote de apps</div>
+        <h2>Tudo o que o criativo precisa — bonito e incluído</h2>
+        <p>Curadoria pensada para o dia a dia de designers, fotógrafos, videomakers, youtubers, DJs, produtores musicais e escritores. Todos são gratuitos, de código aberto e instalados com um clique numa loja visual — sem tocar no terminal. O selo <span style="color:var(--dourado);font-weight:700">★</span> marca o carro-chefe de cada categoria.</p>
+      </div>
+
+      <div class="cats">
+
+        <!-- Dia a dia -->
+        <div class="cat">
+          <h3><span class="dia"></span>Dia a dia &amp; acolhimento</h3>
+          <p class="lead">O essencial que faz o sistema parecer uma casa arrumada.</p>
+          <div class="app"><span class="name">Thunderbird</span><span class="eq">≈ Mail</span><span class="desc">E-mail poderoso e já redesenhado, com contas, calendário e busca. Alternativa mais enxuta: Geary.</span></div>
+          <div class="app"><span class="name">Calendário</span><span class="eq">≈ Calendar</span><span class="desc">Agenda limpa e integrada, com eventos e lembretes num visual claro.</span></div>
+          <div class="app"><span class="name">Calculadora</span><span class="eq">≈ Calculator</span><span class="desc">Simples, científica e de conversões — bonita e instantânea.</span></div>
+          <div class="app"><span class="name">Widgets de desktop</span><span class="eq">≈ Widgets</span><span class="desc">Relógio, clima, notas adesivas, calendário e monitor do sistema direto na área de trabalho.</span></div>
+          <div class="app"><span class="name">Loja de aplicativos</span><span class="eq">1 clique</span><span class="desc">Vitrine visual para instalar qualquer programa sem comando nenhum.</span></div>
+          <div class="app"><span class="name">Firefox</span><span class="eq">≈ Safari</span><span class="desc">Navegador rápido e privado como padrão do sistema.</span></div>
+        </div>
+
+        <!-- Office & escrita -->
+        <div class="cat">
+          <h3><span class="dia"></span>Office &amp; escrita</h3>
+          <p class="lead">Documentos, planilhas e apresentações — melhor que o WPS.</p>
+          <div class="app"><span class="name">OnlyOffice <span class="star">★</span></span><span class="eq">≈ MS Office / WPS</span><span class="desc">Interface moderna em abas e a melhor compatibilidade com Word, Excel e PowerPoint. Gratuito e aberto.</span></div>
+          <div class="app"><span class="name">LibreOffice</span><span class="eq">alternativa</span><span class="desc">Suíte completa e robusta para quem quer o máximo de recursos.</span></div>
+          <div class="app"><span class="name">Obsidian</span><span class="eq">≈ Notes / Bear</span><span class="desc">Notas e escrita em markdown, lindas e organizáveis — ótimo para escritores e roteiristas.</span></div>
+          <div class="app"><span class="name">Okular</span><span class="eq">≈ Preview</span><span class="desc">Leitor de PDF com anotações e marcações.</span></div>
+        </div>
+
+        <!-- Design -->
+        <div class="cat">
+          <h3><span class="dia"></span>Design gráfico</h3>
+          <p class="lead">Do rascunho à arte-final, com ferramentas de nível profissional.</p>
+          <div class="app"><span class="name">Krita <span class="star">★</span></span><span class="eq">≈ Photoshop (arte)</span><span class="desc">Pintura digital e ilustração de nível estúdio — referência entre artistas.</span></div>
+          <div class="app"><span class="name">GIMP</span><span class="eq">≈ Photoshop (foto)</span><span class="desc">Edição e montagem de imagens, retoque e composição em camadas.</span></div>
+          <div class="app"><span class="name">Inkscape</span><span class="eq">≈ Illustrator</span><span class="desc">Ilustração vetorial: logos, ícones e traços que escalam sem perder qualidade.</span></div>
+          <div class="app"><span class="name">Scribus</span><span class="eq">≈ InDesign</span><span class="desc">Diagramação editorial para revistas, livros e materiais impressos.</span></div>
+          <div class="app"><span class="name">Blender</span><span class="eq">≈ Cinema 4D</span><span class="desc">3D e motion graphics completos — bônus poderoso para quem quiser ir além.</span></div>
+        </div>
+
+        <!-- Fotografia -->
+        <div class="cat">
+          <h3><span class="dia"></span>Fotografia</h3>
+          <p class="lead">Da importação do cartão à entrega, com fluxo RAW de verdade.</p>
+          <div class="app"><span class="name">Darktable <span class="star">★</span></span><span class="eq">≈ Lightroom</span><span class="desc">Revelação RAW não-destrutiva, organização por catálogos e edição por curvas e máscaras.</span></div>
+          <div class="app"><span class="name">RawTherapee</span><span class="eq">alternativa RAW</span><span class="desc">Outro revelador poderoso, forte em detalhe e recuperação de altas-luzes.</span></div>
+          <div class="app"><span class="name">digiKam</span><span class="eq">≈ Photos (pro)</span><span class="desc">Biblioteca robusta: tags, rostos, coleções e curadoria de grandes acervos.</span></div>
+        </div>
+
+        <!-- Video -->
+        <div class="cat">
+          <h3><span class="dia"></span>Vídeo &amp; streaming</h3>
+          <p class="lead">Para videomakers e youtubers — edição, cor e gravação.</p>
+          <div class="app"><span class="name">DaVinci Resolve <span class="star">★</span></span><span class="eq">≈ Final Cut / Premiere</span><span class="desc">Edição e correção de cor de nível cinema, gratuito. Um dos maiores atrativos do sistema.</span></div>
+          <div class="app"><span class="name">Kdenlive</span><span class="eq">≈ iMovie+</span><span class="desc">Editor nativo, leve e completo — o caminho mais fácil para começar a cortar.</span></div>
+          <div class="app"><span class="name">OBS Studio</span><span class="eq">≈ ScreenFlow</span><span class="desc">Gravação de tela e transmissão ao vivo, padrão entre criadores.</span></div>
+          <div class="app"><span class="name">HandBrake</span><span class="eq">conversão</span><span class="desc">Exporta e comprime vídeos para qualquer formato ou plataforma.</span></div>
+        </div>
+
+        <!-- Musica -->
+        <div class="cat">
+          <h3><span class="dia"></span>Música, DJ &amp; áudio</h3>
+          <p class="lead">Do primeiro loop ao set completo — o “GarageBand grátis” e além.</p>
+          <div class="app"><span class="name">LMMS <span class="star">★</span></span><span class="eq">≈ GarageBand</span><span class="desc">Criação musical com loops, sintetizadores e caixa de ritmos. O equivalente livre mais próximo do GarageBand.</span></div>
+          <div class="app"><span class="name">Ardour</span><span class="eq">≈ Logic Pro</span><span class="desc">DAW profissional para gravação e mixagem multipista.</span></div>
+          <div class="app"><span class="name">Mixxx</span><span class="eq">≈ Serato / Rekordbox</span><span class="desc">Software de DJ completo: decks, BPM, efeitos e suporte a controladoras.</span></div>
+          <div class="app"><span class="name">Audacity</span><span class="eq">≈ áudio / podcast</span><span class="desc">Gravação e edição de áudio direta — perfeito para locução e podcast.</span></div>
+        </div>
+
+        <!-- Fontes -->
+        <div class="cat wide">
+          <h3><span class="dia"></span>Fontes &amp; tipografia</h3>
+          <p class="lead">Elegantes, legíveis e fáceis de gerenciar — porque criativo vive de tipografia.</p>
+          <div class="app"><span class="name">Gerenciador de Fontes</span><span class="eq">visual, sem terminal</span><span class="desc">App para navegar, pré-visualizar, ativar e instalar fontes com dois cliques.</span></div>
+          <div class="app"><span class="name">Biblioteca curada pré-instalada</span><span class="eq">incluída</span><span class="desc">Inter e Public Sans para interface, IBM Plex e Source para trabalho, Lora e serifadas para leitura — um enxoval tipográfico bonito já no primeiro boot.</span></div>
+        </div>
+
+      </div>
+
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--dourado)"></i> ★ carro-chefe da categoria</span>
+        <span><i class="swatch" style="background:var(--accent)"></i> “≈” = equivalente que ele substitui</span>
+        <span><i class="swatch" style="background:var(--verde)"></i> todos gratuitos e open source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISAO DE AMBIENTE -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow dia">Decisão técnica a confirmar</div>
+        <h2>O ambiente: uma revisão honesta</h2>
+        <p>Na nossa conversa anterior eu sugeri o GNOME. Mas você pediu três coisas que mudam a conta: <strong>widgets no desktop</strong>, customização Mac-like profunda e <strong>tudo por interface gráfica</strong>. Para esse perfil, vale reconsiderar.</p>
+      </div>
+
+      <div class="decision">
+        <span class="badge">Recomendação revisada</span>
+        <h3>KDE Plasma 6 encaixa melhor neste público</h3>
+        <p><span class="hl">Por quê:</span> widgets de desktop são nativos e bonitos no Plasma; a barra de menu global (estilo Mac) existe; tudo é configurável por painéis visuais — <span class="hl">sem terminal</span>; e dá para deixar com cara de Mac de forma muito convincente. O GNOME continua excelente e mais coeso “de fábrica”, mas widgets nele são um remendo e ele oferece menos ajuste fino sem comandos.</p>
+        <div class="vs">
+          <div class="col pick">
+            <h4>KDE Plasma 6 <span class="tag">Escolha</span></h4>
+            <ul>
+              <li>Widgets de desktop nativos e elegantes</li>
+              <li>Barra de menu global (feeling Mac)</li>
+              <li>Configuração 100% por interface gráfica</li>
+              <li>Dock, gestos e atalhos muito ajustáveis</li>
+            </ul>
+          </div>
+          <div class="col alt">
+            <h4>GNOME <span class="tag">Alternativa</span></h4>
+            <ul>
+              <li>Mais coeso e minimalista de fábrica</li>
+              <li>Gestos de trackpad ótimos por padrão</li>
+              <li>Widgets exigem gambiarra</li>
+              <li>Ajuste fino às vezes pede terminal</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow dia">O caminho</div>
+        <h2>Roadmap do MVP, em ordem</h2>
+        <p>Uma sequência real de construção — cada fase entrega algo visível e testável antes da próxima. Você não programa; acompanha, decide e garante a qualidade.</p>
+      </div>
+      <div class="phases">
+        <div class="phase"><div class="idx">1</div><div><h3>Conceito, nome &amp; moodboard</h3><p>Fechar a tese numa frase, o nome, o logo e a direção visual — aqui você brilha, com a identidade Fabulita como ponto de partida.</p></div></div>
+        <div class="phase"><div class="idx">2</div><div><h3>Protótipo que já dá boot</h3><p>Montar uma primeira versão sobre o Ubuntu LTS com o ambiente escolhido. Em uma tarde já roda numa máquina virtual.</p><div class="tools dia">Ferramenta: Cubic (remasteriza a ISO)</div></div></div>
+        <div class="phase"><div class="idx">3</div><div><h3>A “sensação Mac”</h3><p>Dock, busca universal (Spotlight), gestos de trackpad e o remapeamento da tecla ⌘ para os atalhos que o usuário já conhece.</p></div></div>
+        <div class="phase"><div class="idx">4</div><div><h3>Tema coeso &amp; marca</h3><p>Tema visual, ícones, tela de boot, tela de login e papéis de parede — tudo com identidade própria, nada copiado da Apple.</p></div></div>
+        <div class="phase"><div class="idx">5</div><div><h3>O pacote de apps</h3><p>Instalar e pré-configurar toda a curadoria criativa desta página, deixando cada app pronto no primeiro uso.</p></div></div>
+        <div class="phase"><div class="idx">6</div><div><h3>Instalador bonito</h3><p>Um instalador com a sua marca, simples e passo a passo, para qualquer pessoa colocar no notebook sem medo.</p><div class="tools dia">Ferramenta: Calamares</div></div></div>
+        <div class="phase"><div class="idx">7</div><div><h3>Teste &amp; primeira ISO</h3><p>Rodar tudo em máquina virtual, ajustar detalhes e gerar a primeira imagem pública para instalar em hardware real.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FECHAMENTO -->
+  <section class="close">
+    <div class="wrap">
+      <div class="eyebrow dia">Próximo passo</div>
+      <h2>Duas decisões e a gente começa a fase 1</h2>
+      <p>O esqueleto estratégico, técnico e de produto está fechado. Para afinar o arranque, preciso de você em dois pontos:</p>
+      <div class="q">
+        <div><b>1 · Fechar o nome</b><span>“Fabulinux” está livre como distro e o mote já casou com o motivo losango — uma pedra bem lapidada. Confirmamos, ou testamos variações?</span></div>
+        <div><b>2 · Confirmar o ambiente</b><span>Seguimos com KDE Plasma 6 (recomendado, pelos widgets e customização) ou você prefere testar GNOME também?</span></div>
+      </div>
+      <div class="brandline"><i></i> Identidade: kit Fabulita — ametista, roxo, navy, lavanda &middot; títulos serifados + corpo sans &middot; motivo losango</div>
+    </div>
+  </section>
+
+</div>

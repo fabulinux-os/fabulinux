@@ -1,0 +1,432 @@
+<title>Fabulinux — Fase 1 · Identidade Visual</title>
+<style>
+  :root {
+    --navy: #081F36;
+    --navy-2: #0b2946;
+    --navy-deep: #05162a;
+    --ametista: #9B59B6;
+    --facet-light: #C9A0DE;
+    --facet-deep: #4A2E6B;
+    --roxo: #65498C;
+    --lavanda: #F3E4F5;
+    --verde: #2ECC71;
+    --dourado: #DC8F38;
+
+    --ink: #211B30;
+    --muted: #786C8A;
+    --line: #E7DCEE;
+    --card: #FBF7FD;
+    --bg: #FCFAFE;
+
+    --ground: var(--bg);
+    --surface: var(--card);
+    --text: var(--ink);
+    --text-muted: var(--muted);
+    --border: var(--line);
+    --accent: var(--ametista);
+    --tint: var(--lavanda);
+
+    --serif: "Marcellus", "Cambria", Georgia, "Times New Roman", serif;
+    --sans: "Montserrat", "Calibri", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --maxw: 1120px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#0b1526; --surface:#122139; --text:#EFE7F5; --text-muted:#A99DBC;
+      --border:#223350; --accent:#C48BDE; --tint:#1a2c48; --card:#122139;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0b1526; --surface:#122139; --text:#EFE7F5; --text-muted:#A99DBC;
+    --border:#223350; --accent:#C48BDE; --tint:#1a2c48; --card:#122139;
+  }
+  :root[data-theme="light"]{
+    --ground:#FCFAFE; --surface:#FBF7FD; --text:#211B30; --text-muted:#786C8A;
+    --border:#E7DCEE; --accent:#9B59B6; --tint:#F3E4F5; --card:#FBF7FD;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .page { background: var(--ground); color: var(--text); font-family: var(--sans); font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width: var(--maxw); margin:0 auto; padding:0 30px; }
+
+  h1,h2,h3,h4 { font-family: var(--serif); font-weight:400; text-wrap:balance; }
+  .eyebrow { font-size:12px; letter-spacing:.24em; text-transform:uppercase; font-weight:600; color:var(--accent); }
+  .tri-mark { display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:9px solid var(--accent); margin-right:10px; transform:translateY(-1px); }
+
+  /* ---------------- HERO ---------------- */
+  .hero { position:relative; overflow:hidden; background:
+      radial-gradient(1000px 620px at 72% 18%, rgba(155,89,182,.30), transparent 62%),
+      radial-gradient(620px 420px at 12% 120%, rgba(101,73,140,.30), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F3E9FA; border-bottom:1px solid rgba(255,255,255,.06); }
+  .hero .facets { position:absolute; inset:0; opacity:.5; pointer-events:none; }
+  .hero .wrap { position:relative; display:grid; grid-template-columns: 1.15fr .85fr; gap:40px; align-items:center; padding:70px 30px 78px; }
+  .hero .eyebrow { color:#Dcb6ec; }
+  .hero h1 { font-size:clamp(3rem,7vw,5.4rem); line-height:.98; margin:16px 0 0; color:#FBF4FE; letter-spacing:.01em; }
+  .hero .mote { font-size:clamp(1.05rem,2vw,1.4rem); font-weight:500; color:#E7CFF2; margin:20px 0 0; }
+  .hero .concept { font-family:var(--serif); font-style:italic; font-size:1.15rem; color:#C9A9D9; margin:22px 0 0; max-width:34ch; }
+  .gem-stage { display:flex; justify-content:center; }
+  .gem { width:min(300px,72vw); height:auto; filter: drop-shadow(0 30px 55px rgba(74,46,107,.55)); }
+
+  section { padding:70px 0; }
+  section + section { border-top:1px solid var(--border); }
+  .sec-head { margin-bottom:36px; max-width:70ch; }
+  .sec-head h2 { font-size:clamp(1.7rem,3.3vw,2.5rem); margin:12px 0 0; }
+  .sec-head p { color:var(--text-muted); margin:14px 0 0; font-size:1.02rem; }
+
+  /* ---------------- CONCEITO ---------------- */
+  .moodwords { display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
+  .moodwords span { font-family:var(--serif); font-size:1.05rem; color:var(--text); background:var(--tint); border:1px solid var(--border); border-radius:999px; padding:8px 18px; }
+  .concept-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; margin-top:34px; }
+  .cc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; }
+  .cc h3 { font-size:1.15rem; margin:10px 0 8px; }
+  .cc p { margin:0; color:var(--text-muted); font-size:.94rem; }
+
+  /* ---------------- LOGO ---------------- */
+  .logo-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .logo-card { border-radius:16px; padding:44px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; min-height:230px; border:1px solid var(--border); }
+  .logo-card.dark { background:var(--navy); }
+  .logo-card.lightbg { background:var(--lavanda); }
+  .lockup { display:flex; align-items:center; gap:16px; }
+  .lockup .wm { font-family:var(--serif); font-size:2.1rem; letter-spacing:.02em; }
+  .logo-card.dark .wm { color:#F6ECFB; }
+  .logo-card.lightbg .wm { color:var(--navy); }
+  .logo-note { font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; }
+  .logo-card.dark .logo-note { color:#9f86b8; }
+  .logo-card.lightbg .logo-note { color:var(--roxo); }
+
+  /* ---------------- PALETA ---------------- */
+  .swatches { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; }
+  .sw { border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface); }
+  .sw .chip { height:88px; }
+  .sw .meta { padding:12px 14px; }
+  .sw .role { font-size:.82rem; color:var(--text); font-weight:600; }
+  .sw .hex { font-family:var(--sans); font-size:.78rem; color:var(--text-muted); letter-spacing:.04em; margin-top:3px; text-transform:uppercase; }
+
+  /* ---------------- TIPOGRAFIA ---------------- */
+  .type-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .type-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px; }
+  .type-card .tag { font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; }
+  .type-card .big { font-family:var(--serif); font-size:4.2rem; line-height:1; margin:14px 0 6px; color:var(--text); }
+  .type-card .name { font-family:var(--serif); font-size:1.15rem; color:var(--text); }
+  .type-card .specimen { font-family:var(--serif); font-size:1.5rem; line-height:1.3; color:var(--text); margin:16px 0 0; }
+  .type-card.body .big { font-family:var(--sans); font-weight:600; }
+  .type-card.body .specimen { font-family:var(--sans); font-size:1rem; color:var(--text-muted); line-height:1.65; }
+  .weights { display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-family:var(--sans); color:var(--text); }
+  .weights b:nth-child(1){font-weight:400;} .weights b:nth-child(2){font-weight:500;} .weights b:nth-child(3){font-weight:600;} .weights b:nth-child(4){font-weight:700;}
+
+  /* ---------------- MOTIVO / TRIÂNGULOS ---------------- */
+  .motif { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch; }
+  .motif-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
+  .motif-card h3 { font-size:1.25rem; margin:0 0 8px; }
+  .motif-card p { color:var(--text-muted); font-size:.94rem; margin:0 0 18px; }
+  .win { background:var(--navy); border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 20px 40px rgba(8,31,54,.35); }
+  .titlebar { display:flex; align-items:center; gap:10px; padding:13px 16px; background:linear-gradient(180deg,#0e2a47,#0a2138); }
+  .ctrl { width:0;height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:14px solid; }
+  .ctrl.close { border-bottom-color:var(--ametista); }
+  .ctrl.min { border-bottom-color:var(--dourado); }
+  .ctrl.max { border-bottom-color:var(--verde); }
+  .titlebar .t { margin-left:8px; color:#c9b3da; font-size:.82rem; font-family:var(--sans); }
+  .win-body { height:150px; background:
+      radial-gradient(420px 180px at 78% 0%, rgba(155,89,182,.55), transparent 60%),
+      linear-gradient(160deg,#20143c 0%, #0a2138 70%); position:relative; }
+  .dock { position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:9px; padding:7px 10px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.14); border-radius:12px; backdrop-filter:blur(6px); }
+  .dock i { width:22px; height:22px; border-radius:7px; display:block; }
+  .tri-list { list-style:none; margin:0; padding:0; }
+  .tri-list li { position:relative; padding-left:24px; margin:11px 0; color:var(--text-muted); font-size:.95rem; }
+  .tri-list li::before { content:""; position:absolute; left:0; top:6px; width:0;height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:11px solid var(--accent); }
+  .facet-strip { display:flex; gap:2px; margin-top:20px; height:16px; border-radius:6px; overflow:hidden; }
+  .facet-strip span { flex:1; }
+
+  /* ---------------- VOZ ---------------- */
+  .voice { display:grid; grid-template-columns:1.2fr .8fr; gap:24px; }
+  .voice .lines { display:flex; flex-direction:column; gap:16px; }
+  .voice blockquote { margin:0; font-family:var(--serif); font-size:1.3rem; line-height:1.4; color:var(--text); border-left:3px solid var(--accent); padding-left:18px; }
+  .micro { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; }
+  .micro h4 { margin:0 0 12px; font-size:1.05rem; }
+  .micro .pair { display:flex; align-items:center; gap:12px; margin:10px 0; font-family:var(--sans); font-size:.9rem; }
+  .micro .btn { background:var(--accent); color:#fff; border-radius:8px; padding:6px 14px; font-weight:600; font-size:.85rem; }
+  .micro .arrow { color:var(--text-muted); }
+  .micro .toast { background:var(--tint); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:6px 14px; }
+
+  /* ---------------- CLOSE ---------------- */
+  .close { background:var(--navy); color:#E7D6F0; }
+  .close .wrap { padding:60px 30px; }
+  .close .eyebrow{ color:#Dcb6ec; }
+  .close h2 { color:#FBF4FE; font-size:clamp(1.6rem,3vw,2.3rem); margin:12px 0 14px; }
+  .close p { color:#C6ABD6; max-width:62ch; }
+  .close .next { margin-top:26px; display:flex; align-items:center; gap:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.13); border-radius:12px; padding:18px 20px; }
+  .close .next b { font-family:var(--serif); color:#F3E4F5; font-size:1.1rem; }
+  .close .next span { color:#C1A3D0; font-size:.92rem; }
+
+  @media (max-width:820px){
+    .hero .wrap{ grid-template-columns:1fr; } .gem-stage{ order:-1; }
+    .logo-row,.type-grid,.motif,.voice{ grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .float { animation: bob 6s ease-in-out infinite; }
+    @keyframes bob { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+  }
+</style>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <svg class="facets" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="rgba(201,160,222,.10)" stroke-width="1">
+        <path d="M0 120 L300 0 L520 220 L180 360 Z"/>
+        <path d="M300 0 L680 60 L520 220 Z"/>
+        <path d="M900 600 L1120 380 L1200 560 Z"/>
+        <path d="M1000 120 L1200 40 L1160 300 L980 260 Z"/>
+        <path d="M120 560 L360 460 L300 640 Z"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <div>
+        <div class="eyebrow"><span class="tri-mark"></span>Fase 1 &middot; Identidade visual &middot; Moodboard</div>
+        <h1>Fabulinux</h1>
+        <p class="mote">O Linux mais bem lapidado para você que quer criar.</p>
+        <p class="concept">Uma pedra preciosa lapidada: bruta por dentro, brilhante por fora — cada faceta cortada à mão para brilhar.</p>
+      </div>
+      <div class="gem-stage">
+        <svg class="gem float" viewBox="0 0 200 260" role="img" aria-label="Gema ametista lapidada, símbolo do Fabulinux">
+          <defs>
+            <linearGradient id="gTable" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#B981D6"/><stop offset="1" stop-color="#7B4A9E"/>
+            </linearGradient>
+            <linearGradient id="gLeft" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#5E3A86"/><stop offset="1" stop-color="#38235C"/>
+            </linearGradient>
+            <linearGradient id="gRight" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EAD1F4"/><stop offset="1" stop-color="#B98CDA"/>
+            </linearGradient>
+            <linearGradient id="gPavC" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#9B59B6"/><stop offset="1" stop-color="#4A2E6B"/>
+            </linearGradient>
+            <linearGradient id="gPavL" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4A2E6B"/><stop offset="1" stop-color="#2A1A45"/>
+            </linearGradient>
+            <linearGradient id="gPavR" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#CDA6E4"/><stop offset="1" stop-color="#8557AC"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+              <stop offset="0" stop-color="rgba(201,160,222,.55)"/><stop offset="1" stop-color="rgba(201,160,222,0)"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="100" cy="120" rx="120" ry="120" fill="url(#glow)"/>
+          <g stroke="rgba(255,255,255,.16)" stroke-width="1.1" stroke-linejoin="round">
+            <polygon points="72,44 128,44 134,112 66,112" fill="url(#gTable)"/>
+            <polygon points="72,44 20,112 66,112" fill="url(#gLeft)"/>
+            <polygon points="128,44 180,112 134,112" fill="url(#gRight)"/>
+            <polygon points="20,112 66,112 100,248" fill="url(#gPavL)"/>
+            <polygon points="66,112 134,112 100,248" fill="url(#gPavC)"/>
+            <polygon points="134,112 180,112 100,248" fill="url(#gPavR)"/>
+          </g>
+          <polygon points="80,50 120,50 116,66 84,66" fill="rgba(255,255,255,.28)"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONCEITO -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>O conceito</div>
+        <h2>Pedra preciosa lapidada</h2>
+        <p>A identidade não empresta a marca comercial — empresta a <strong>ideia</strong>: Linux é a pedra bruta; o Fabulinux é o corte que revela o brilho. Cada faceta é uma decisão de design feita por você, para que o usuário receba só a joia pronta.</p>
+      </div>
+      <div class="moodwords">
+        <span>Lapidado</span><span>Acolhedor</span><span>Sereno</span><span>Criativo</span><span>Premium acessível</span><span>Confiável</span>
+      </div>
+      <div class="concept-grid">
+        <div class="cc"><h3>Facetas, não botões</h3><p>O sistema chega pronto e coeso. O usuário cria; nós já lapidamos as arestas por ele.</p></div>
+        <div class="cc"><h3>Luz controlada</h3><p>Poucas cores, muito contraste onde importa. A joia brilha porque o entorno é sóbrio.</p></div>
+        <div class="cc"><h3>Peso que tranquiliza</h3><p>Navy profundo como caixa de joias: transmite solidez, cuidado e “não vai quebrar”.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>Marca</div>
+        <h2>A gema + o nome</h2>
+        <p>O símbolo é a gema lapidada — construída inteiramente de triângulos, o átomo visual do Fabulinux. Funciona sozinho como ícone e travado ao lado do nome serifado.</p>
+      </div>
+      <div class="logo-row">
+        <div class="logo-card dark">
+          <div class="lockup">
+            <svg width="46" height="60" viewBox="0 0 200 260" aria-hidden="true">
+              <g stroke="rgba(255,255,255,.16)" stroke-width="1.4" stroke-linejoin="round">
+                <polygon points="72,44 128,44 134,112 66,112" fill="url(#gTable)"/>
+                <polygon points="72,44 20,112 66,112" fill="url(#gLeft)"/>
+                <polygon points="128,44 180,112 134,112" fill="url(#gRight)"/>
+                <polygon points="20,112 66,112 100,248" fill="url(#gPavL)"/>
+                <polygon points="66,112 134,112 100,248" fill="url(#gPavC)"/>
+                <polygon points="134,112 180,112 100,248" fill="url(#gPavR)"/>
+              </g>
+            </svg>
+            <span class="wm">Fabulinux</span>
+          </div>
+          <div class="logo-note">Assinatura principal &middot; fundo navy</div>
+        </div>
+        <div class="logo-card lightbg">
+          <div class="lockup">
+            <svg width="46" height="60" viewBox="0 0 200 260" aria-hidden="true">
+              <g stroke="rgba(8,31,54,.18)" stroke-width="1.4" stroke-linejoin="round">
+                <polygon points="72,44 128,44 134,112 66,112" fill="url(#gTable)"/>
+                <polygon points="72,44 20,112 66,112" fill="url(#gLeft)"/>
+                <polygon points="128,44 180,112 134,112" fill="url(#gRight)"/>
+                <polygon points="20,112 66,112 100,248" fill="url(#gPavL)"/>
+                <polygon points="66,112 134,112 100,248" fill="url(#gPavC)"/>
+                <polygon points="134,112 180,112 100,248" fill="url(#gPavR)"/>
+              </g>
+            </svg>
+            <span class="wm">Fabulinux</span>
+          </div>
+          <div class="logo-note">Versão clara &middot; fundo lavanda</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETA -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>Paleta</div>
+        <h2>As facetas da gema</h2>
+        <p>Sete tons derivados de uma ametista sob a luz: da sombra profunda ao reflexo mais claro. Ametista é a cor-assinatura; o navy é a caixa que a guarda.</p>
+      </div>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#9B59B6"></div><div class="meta"><div class="role">Ametista — assinatura</div><div class="hex">#9B59B6</div></div></div>
+        <div class="sw"><div class="chip" style="background:#081F36"></div><div class="meta"><div class="role">Navy — a caixa de joias</div><div class="hex">#081F36</div></div></div>
+        <div class="sw"><div class="chip" style="background:#C9A0DE"></div><div class="meta"><div class="role">Reflexo lapidado</div><div class="hex">#C9A0DE</div></div></div>
+        <div class="sw"><div class="chip" style="background:#65498C"></div><div class="meta"><div class="role">Roxo — sombra da faceta</div><div class="hex">#65498C</div></div></div>
+        <div class="sw"><div class="chip" style="background:#4A2E6B"></div><div class="meta"><div class="role">Profundo — pavilhão</div><div class="hex">#4A2E6B</div></div></div>
+        <div class="sw"><div class="chip" style="background:#F3E4F5"></div><div class="meta"><div class="role">Lavanda — luz / superfície</div><div class="hex">#F3E4F5</div></div></div>
+        <div class="sw"><div class="chip" style="background:#2ECC71"></div><div class="meta"><div class="role">Verde — confirmação</div><div class="hex">#2ECC71</div></div></div>
+        <div class="sw"><div class="chip" style="background:#DC8F38"></div><div class="meta"><div class="role">Dourado — detalhe raro</div><div class="hex">#DC8F38</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOGRAFIA -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>Tipografia</div>
+        <h2>Serifada elegante + sans legível</h2>
+        <p>Uma serifada com ar de joalheria para títulos e nome; uma sans limpa e humana para tudo que se lê de perto. Elegante nas manchetes, generosa no corpo.</p>
+      </div>
+      <div class="type-grid">
+        <div class="type-card">
+          <div class="tag">Display &middot; títulos &amp; marca</div>
+          <div class="big">Ag</div>
+          <div class="name">Marcellus <span style="color:var(--text-muted);font-family:var(--sans);font-size:.8rem">(alt.: Cambria)</span></div>
+          <div class="specimen">Criar é lapidar o que já existe em você.</div>
+        </div>
+        <div class="type-card body">
+          <div class="tag">Corpo &middot; interface &amp; leitura</div>
+          <div class="big">Ag</div>
+          <div class="name" style="font-family:var(--sans);font-weight:600">Montserrat <span style="color:var(--text-muted);font-weight:400;font-size:.8rem">(alt.: Calibri)</span></div>
+          <div class="specimen">Um sistema que acolhe quem vem do Mac, sem pedir que ninguém aprenda a mexer no terminal. Simples de usar, difícil de quebrar.</div>
+          <div class="weights"><b>Regular</b><b>Medium</b><b>Semibold</b><b>Bold</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTIVO -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>O sistema de triângulos</div>
+        <h2>A faceta como assinatura</h2>
+        <p>O triângulo é o átomo da marca — a faceta da gema. Ele vira marcador de lista, divisor e, sobretudo, os <strong>controles de janela à esquerda</strong>: a assinatura mais reconhecível do Fabulinux.</p>
+      </div>
+      <div class="motif">
+        <div class="motif-card">
+          <h3>Controles de janela em triângulo</h3>
+          <p>À esquerda, no gesto familiar do Mac — mas com a forma da nossa gema. Fechar, minimizar e maximizar viram três facetas coloridas.</p>
+          <div class="win">
+            <div class="titlebar">
+              <span class="ctrl close"></span><span class="ctrl min"></span><span class="ctrl max"></span>
+              <span class="t">Krita — sem título</span>
+            </div>
+            <div class="win-body">
+              <div class="dock">
+                <i style="background:#9B59B6"></i><i style="background:#C9A0DE"></i><i style="background:#DC8F38"></i><i style="background:#2ECC71"></i><i style="background:#65498C"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="motif-card">
+          <h3>A faceta em todo lugar</h3>
+          <p>O mesmo triângulo organiza a informação — sem ruído, sempre apontando adiante.</p>
+          <ul class="tri-list">
+            <li>Marcador de listas e menus</li>
+            <li>Divisores e cabeçalhos de seção</li>
+            <li>Ícone de progresso e de “abrir”</li>
+            <li>Padrão de fundo em papéis de parede</li>
+          </ul>
+          <div class="facet-strip">
+            <span style="background:#4A2E6B"></span><span style="background:#65498C"></span><span style="background:#9B59B6"></span><span style="background:#C9A0DE"></span><span style="background:#F3E4F5"></span>
+          </div>
+          <p style="margin-top:14px;font-size:.85rem">Gradiente de facetas — da sombra à luz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOZ -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow"><span class="tri-mark"></span>Tom de voz</div>
+        <h2>Convida, não configura</h2>
+        <p>A voz do Fabulinux fala com quem cria: calorosa, direta e sem jargão técnico. Cada botão diz exatamente o que faz.</p>
+      </div>
+      <div class="voice">
+        <div class="lines">
+          <blockquote>“Bem-vindo. Vamos começar a criar?” — não “Configuração inicial do sistema”.</blockquote>
+          <blockquote>“Suas fontes já estão prontas.” — não “Cache de fontes reconstruído”.</blockquote>
+          <blockquote>Simples no verbo, generoso no gesto.</blockquote>
+        </div>
+        <div class="micro">
+          <h4>Micro-copy</h4>
+          <div class="pair"><span class="btn">Publicar</span><span class="arrow">→</span><span class="toast">Publicado ✓</span></div>
+          <div class="pair"><span class="btn">Salvar projeto</span><span class="arrow">→</span><span class="toast">Salvo ✓</span></div>
+          <p style="color:var(--text-muted);font-size:.86rem;margin:14px 0 0">Ações no imperativo; confirmações curtas e tranquilas. Erros explicam o caminho, nunca pedem desculpas vagas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <div class="eyebrow"><span class="tri-mark" style="border-bottom-color:#Dcb6ec"></span>Fase 1 concluída</div>
+      <h2>A gema tem forma. Hora de lapidar o protótipo.</h2>
+      <p>Este é o ponto de partida visual do Fabulinux — conceito de pedra preciosa, gema de triângulos, paleta ametista/navy, tipografia e a assinatura dos controles de janela à esquerda. Com a identidade definida, a Fase 2 monta o primeiro sistema que dá boot.</p>
+      <div class="next">
+        <svg width="30" height="40" viewBox="0 0 200 260" aria-hidden="true">
+          <g stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linejoin="round">
+            <polygon points="72,44 128,44 134,112 66,112" fill="url(#gTable)"/>
+            <polygon points="72,44 20,112 66,112" fill="url(#gLeft)"/>
+            <polygon points="128,44 180,112 134,112" fill="url(#gRight)"/>
+            <polygon points="20,112 66,112 100,248" fill="url(#gPavL)"/>
+            <polygon points="66,112 134,112 100,248" fill="url(#gPavC)"/>
+            <polygon points="134,112 180,112 100,248" fill="url(#gPavR)"/>
+          </g>
+        </svg>
+        <div><b>Próximo: Fase 2 — protótipo que dá boot</b><br><span>Base imutável + KDE travado em modo quiosque, com a identidade acima aplicada.</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>

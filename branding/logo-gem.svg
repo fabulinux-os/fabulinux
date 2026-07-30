@@ -1,0 +1,43 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gTable" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B981D6"/><stop offset="1" stop-color="#7B4A9E"/>
+    </linearGradient>
+    <linearGradient id="gLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5E3A86"/><stop offset="1" stop-color="#38235C"/>
+    </linearGradient>
+    <linearGradient id="gRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAD1F4"/><stop offset="1" stop-color="#B98CDA"/>
+    </linearGradient>
+    <linearGradient id="gPavC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9B59B6"/><stop offset="1" stop-color="#4A2E6B"/>
+    </linearGradient>
+    <linearGradient id="gPavL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4A2E6B"/><stop offset="1" stop-color="#2A1A45"/>
+    </linearGradient>
+    <linearGradient id="gPavR" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CDA6E4"/><stop offset="1" stop-color="#8557AC"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="50%" cy="46%" r="55%">
+      <stop offset="0" stop-color="#173257"/><stop offset="1" stop-color="#081F36"/>
+    </radialGradient>
+    <radialGradient id="gemGlow" cx="50%" cy="42%" r="55%">
+      <stop offset="0" stop-color="rgba(201,160,222,.5)"/><stop offset="1" stop-color="rgba(201,160,222,0)"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bgGlow)"/>
+
+  <g transform="translate(291,226) scale(2.2)">
+    <ellipse cx="100" cy="120" rx="128" ry="128" fill="url(#gemGlow)"/>
+    <g stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-linejoin="round">
+      <polygon points="72,44 128,44 134,112 66,112" fill="url(#gTable)"/>
+      <polygon points="72,44 20,112 66,112" fill="url(#gLeft)"/>
+      <polygon points="128,44 180,112 134,112" fill="url(#gRight)"/>
+      <polygon points="20,112 66,112 100,248" fill="url(#gPavL)"/>
+      <polygon points="66,112 134,112 100,248" fill="url(#gPavC)"/>
+      <polygon points="134,112 180,112 100,248" fill="url(#gPavR)"/>
+    </g>
+    <polygon points="80,50 120,50 116,66 84,66" fill="rgba(255,255,255,.30)"/>
+  </g>
+</svg>
