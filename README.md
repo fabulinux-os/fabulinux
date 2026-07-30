@@ -74,9 +74,10 @@ brilho. O símbolo é uma **gema construída inteiramente de triângulos** — o
 - **Tipografia:** serifada elegante nos títulos + sans legível no corpo.
 - **Motivo:** o triângulo (faceta) — dos marcadores de lista aos controles de janela.
 
-Materiais visuais neste repositório:
-- [`docs/moodboard.html`](docs/moodboard.html) — identidade visual (Fase 1)
-- [`docs/roadmap.html`](docs/roadmap.html) — roadmap e pacote de apps
+Materiais visuais (versões renderizadas via GitHub Pages — clique para abrir):
+- **Identidade visual (Fase 1):** https://fabulinux-os.github.io/fabulinux/docs/moodboard.html
+- **Roadmap e pacote de apps:** https://fabulinux-os.github.io/fabulinux/docs/roadmap.html
+- **Site do projeto:** https://fabulinux-os.github.io/fabulinux/
 
 ## Roadmap
 
