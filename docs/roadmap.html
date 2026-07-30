@@ -296,7 +296,7 @@
       <p class="thesis">“Acolher o usuário Mac num universo Linux — bonito, simples e sem terminal.”</p>
       <div class="hero-meta">
         <div><div class="k">Público</div><div class="v">Criativos</div></div>
-        <div><div class="k">Base técnica</div><div class="v">Ubuntu LTS</div></div>
+        <div><div class="k">Base técnica</div><div class="v">Imutável + KDE</div></div>
         <div><div class="k">Promessa</div><div class="v">Zero terminal</div></div>
         <div><div class="k">Posição</div><div class="v">Alternativa ao MacBook</div></div>
       </div>
@@ -356,7 +356,7 @@
         <div class="cat">
           <h3><span class="dia"></span>Dia a dia &amp; acolhimento</h3>
           <p class="lead">O essencial que faz o sistema parecer uma casa arrumada.</p>
-          <div class="app"><span class="name">Thunderbird</span><span class="eq">≈ Mail</span><span class="desc">E-mail poderoso e já redesenhado, com contas, calendário e busca. Alternativa mais enxuta: Geary.</span></div>
+          <div class="app"><span class="name">Geary <span class="star">★</span></span><span class="eq">≈ Mail</span><span class="desc">E-mail simples e bonito, com conversas agrupadas e praticamente zero configuração. Alternativa mais completa: Mailspring.</span></div>
           <div class="app"><span class="name">Calendário</span><span class="eq">≈ Calendar</span><span class="desc">Agenda limpa e integrada, com eventos e lembretes num visual claro.</span></div>
           <div class="app"><span class="name">Calculadora</span><span class="eq">≈ Calculator</span><span class="desc">Simples, científica e de conversões — bonita e instantânea.</span></div>
           <div class="app"><span class="name">Widgets de desktop</span><span class="eq">≈ Widgets</span><span class="desc">Relógio, clima, notas adesivas, calendário e monitor do sistema direto na área de trabalho.</span></div>
@@ -436,35 +436,36 @@
   <section>
     <div class="wrap">
       <div class="sec-head">
-        <div class="eyebrow dia">Decisão técnica a confirmar</div>
-        <h2>O ambiente: uma revisão honesta</h2>
-        <p>Na nossa conversa anterior eu sugeri o GNOME. Mas você pediu três coisas que mudam a conta: <strong>widgets no desktop</strong>, customização Mac-like profunda e <strong>tudo por interface gráfica</strong>. Para esse perfil, vale reconsiderar.</p>
+        <div class="eyebrow dia">Arquitetura confirmada</div>
+        <h2>Base imutável + KDE Plasma travado</h2>
+        <p>As decisões técnicas estão fechadas. O Fabulinux é <strong>curado e opinativo</strong>: o sistema chega pronto, o usuário cria — não configura — e não consegue quebrá-lo.</p>
       </div>
 
       <div class="decision">
-        <span class="badge">Recomendação revisada</span>
-        <h3>KDE Plasma 6 encaixa melhor neste público</h3>
-        <p><span class="hl">Por quê:</span> widgets de desktop são nativos e bonitos no Plasma; a barra de menu global (estilo Mac) existe; tudo é configurável por painéis visuais — <span class="hl">sem terminal</span>; e dá para deixar com cara de Mac de forma muito convincente. O GNOME continua excelente e mais coeso “de fábrica”, mas widgets nele são um remendo e ele oferece menos ajuste fino sem comandos.</p>
+        <span class="badge">Confirmado</span>
+        <h3>Simples de usar, difícil de quebrar</h3>
+        <p>Duas camadas garantem isso: uma <span class="hl">base imutável</span> protege o sistema por baixo, e um <span class="hl">Plasma travado</span> mantém a interface fixa e elegante por cima.</p>
         <div class="vs">
           <div class="col pick">
-            <h4>KDE Plasma 6 <span class="tag">Escolha</span></h4>
+            <h4>Base imutável / atômica <span class="tag">Confirmado</span></h4>
             <ul>
-              <li>Widgets de desktop nativos e elegantes</li>
-              <li>Barra de menu global (feeling Mac)</li>
-              <li>Configuração 100% por interface gráfica</li>
-              <li>Dock, gestos e atalhos muito ajustáveis</li>
+              <li>Núcleo do sistema somente-leitura</li>
+              <li>Atualizações atômicas com rollback</li>
+              <li>Apps isolados via Flatpak (loja visual)</li>
+              <li>Praticamente impossível “não bootar”</li>
             </ul>
           </div>
-          <div class="col alt">
-            <h4>GNOME <span class="tag">Alternativa</span></h4>
+          <div class="col pick">
+            <h4>KDE Plasma 6 travado <span class="tag">Confirmado</span></h4>
             <ul>
-              <li>Mais coeso e minimalista de fábrica</li>
-              <li>Gestos de trackpad ótimos por padrão</li>
-              <li>Widgets exigem gambiarra</li>
-              <li>Ajuste fino às vezes pede terminal</li>
+              <li>Modo quiosque (Kiosk): opções bloqueadas</li>
+              <li>Widgets + barra de menu global mantidos</li>
+              <li>Controles de janela em triângulo, à esquerda</li>
+              <li>Zero terminal para o usuário</li>
             </ul>
           </div>
         </div>
+        <p style="margin:16px 0 0"><span class="hl">Referência comprovada:</span> o <strong>SteamOS</strong> da Valve usa exatamente essa fundação — imutável + KDE travado — rodando em milhões de aparelhos.</p>
       </div>
     </div>
   </section>
@@ -478,8 +479,8 @@
         <p>Uma sequência real de construção — cada fase entrega algo visível e testável antes da próxima. Você não programa; acompanha, decide e garante a qualidade.</p>
       </div>
       <div class="phases">
-        <div class="phase"><div class="idx">1</div><div><h3>Conceito, nome &amp; moodboard</h3><p>Fechar a tese numa frase, o nome, o logo e a direção visual — aqui você brilha, com a identidade Fabulita como ponto de partida.</p></div></div>
-        <div class="phase"><div class="idx">2</div><div><h3>Protótipo que já dá boot</h3><p>Montar uma primeira versão sobre o Ubuntu LTS com o ambiente escolhido. Em uma tarde já roda numa máquina virtual.</p><div class="tools dia">Ferramenta: Cubic (remasteriza a ISO)</div></div></div>
+        <div class="phase"><div class="idx">1</div><div><h3>Conceito, nome &amp; moodboard</h3><p>Tese, nome (Fabulinux), logo e direção visual definidos — conceito de pedra preciosa lapidada, gema de triângulos, paleta e tipografia.</p><div class="tools dia">✓ Concluída</div></div></div>
+        <div class="phase"><div class="idx">2</div><div><h3>Protótipo que já dá boot</h3><p>Montar uma primeira versão sobre uma <strong>base atômica com KDE Plasma travado</strong>, já com a identidade aplicada. Roda numa máquina virtual, com rollback de fábrica.</p><div class="tools dia">▸ Fase atual · base imutável/atômica + KDE (modo quiosque)</div></div></div>
         <div class="phase"><div class="idx">3</div><div><h3>A “sensação Mac”</h3><p>Dock, busca universal (Spotlight), gestos de trackpad e o remapeamento da tecla ⌘ para os atalhos que o usuário já conhece.</p></div></div>
         <div class="phase"><div class="idx">4</div><div><h3>Tema coeso &amp; marca</h3><p>Tema visual, ícones, tela de boot, tela de login e papéis de parede — tudo com identidade própria, nada copiado da Apple.</p></div></div>
         <div class="phase"><div class="idx">5</div><div><h3>O pacote de apps</h3><p>Instalar e pré-configurar toda a curadoria criativa desta página, deixando cada app pronto no primeiro uso.</p></div></div>
@@ -492,14 +493,14 @@
   <!-- FECHAMENTO -->
   <section class="close">
     <div class="wrap">
-      <div class="eyebrow dia">Próximo passo</div>
-      <h2>Duas decisões e a gente começa a fase 1</h2>
-      <p>O esqueleto estratégico, técnico e de produto está fechado. Para afinar o arranque, preciso de você em dois pontos:</p>
+      <div class="eyebrow dia">Onde estamos</div>
+      <h2>Fase 1 concluída. Arquitetura confirmada.</h2>
+      <p>Nome, identidade visual e a fundação técnica estão fechados: base imutável/atômica + KDE Plasma travado, curado e sem terminal. O próximo passo é a Fase 2 — o primeiro protótipo que dá boot.</p>
       <div class="q">
-        <div><b>1 · Fechar o nome</b><span>“Fabulinux” está livre como distro e o mote já casou com o motivo losango — uma pedra bem lapidada. Confirmamos, ou testamos variações?</span></div>
-        <div><b>2 · Confirmar o ambiente</b><span>Seguimos com KDE Plasma 6 (recomendado, pelos widgets e customização) ou você prefere testar GNOME também?</span></div>
+        <div><b>✓ Fase 1 — Identidade</b><span>Nome, gema, paleta, tipografia e o mockup do desktop.</span></div>
+        <div><b>▸ Fase 2 — Protótipo</b><span>Planejada e acompanhada no GitHub Project do repositório, com tarefas divididas entre você e o Claude.</span></div>
       </div>
-      <div class="brandline"><i></i> Identidade: kit Fabulita — ametista, roxo, navy, lavanda &middot; títulos serifados + corpo sans &middot; motivo losango</div>
+      <div class="brandline"><i></i> Identidade própria — pedra preciosa lapidada &middot; ametista, roxo, navy, lavanda &middot; motivo triângulo</div>
     </div>
   </section>
 
