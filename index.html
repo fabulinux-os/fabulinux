@@ -87,6 +87,14 @@
   .sec-head h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); margin:12px 0 0; }
   .sec-head p{ color:var(--text-muted); margin:14px 0 0; font-size:1.04rem; }
 
+  /* SHOWCASE */
+  #vislumbre{ background:linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 100%); color:#E7D6F0; }
+  #vislumbre .eyebrow{ color:#Dcb6ec; }
+  #vislumbre .sec-head h2{ color:#FBF4FE; }
+  #vislumbre .sec-head p{ color:#C6ABD6; }
+  .shot{ display:block; width:100%; max-width:1120px; margin:8px auto 0; border-radius:16px; border:1px solid rgba(255,255,255,.12); box-shadow:0 40px 90px rgba(0,0,0,.45); }
+  .shot-cap{ text-align:center; color:#A98BBB; font-size:.85rem; margin:18px auto 0; max-width:60ch; }
+
   /* PILLARS */
   .pillars{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
   .pillar{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px 22px; }
@@ -209,6 +217,18 @@
         <polygon points="80,50 120,50 116,66 84,66" fill="rgba(255,255,255,.28)"/>
       </svg>
     </div>
+  </div>
+</section>
+
+<section id="vislumbre">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow"><span class="tri"></span>Um vislumbre</div>
+      <h2>Assim será a sua área de trabalho</h2>
+      <p>Barra de menu global, dock com seus apps, widgets de relógio e clima — e os controles de janela em triângulo, à esquerda. Bonito e coeso desde o primeiro boot.</p>
+    </div>
+    <img class="shot" src="branding/desktop-mockup.png" alt="Mockup da área de trabalho do Fabulinux, com barra de menu, janelas do Geary e do Krita, widgets e dock">
+    <p class="shot-cap">Conceito visual do desktop do Fabulinux. Apps mostrados: Krita, Geary, GIMP, Inkscape, Darktable, DaVinci Resolve, LMMS, OnlyOffice, Arquivos e Firefox.</p>
   </div>
 </section>
 
