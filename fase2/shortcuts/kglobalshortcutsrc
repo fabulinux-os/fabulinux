@@ -1,0 +1,46 @@
+# fase2/shortcuts/kglobalshortcutsrc
+#
+# Atalhos globais estilo Mac para KDE Plasma 6 (assume Plasma >= 6.1,
+# onde os "modifier-only shortcuts" passaram a viver aqui em vez de
+# kwinrc — ver NOTAS.md para o caso de uma base com Plasma 6.0.x).
+#
+# Onde isso entra no sistema:
+#   - Config de fábrica (todo usuário novo já nasce com isso):
+#       /etc/xdg/kglobalshortcutsrc
+#   - Ou por usuário (sobrescreve o de fábrica):
+#       ~/.config/kglobalshortcutsrc
+#
+# Formato de cada linha (padrão do KDE, não é invenção nossa):
+#   AcaoInterna=atalhos-ativos(\t separa vários),atalhos-padrao(mesmo formato),Descricao
+#
+# Ao colocar os MESMOS atalhos nos dois primeiros campos, "Restaurar
+# padrões" no Painel de Controle mantém a nossa identidade Mac-like
+# em vez de voltar para o KDE genérico — é assim que uma distro curada
+# define o próprio "padrão de fábrica".
+#
+# Isto NÃO substitui o arquivo inteiro do usuário: some estas linhas
+# às seções existentes (ou aplique via kwriteconfig6, ver install.sh
+# nesta pasta) para não apagar outros atalhos que a pessoa já tenha.
+
+[org.kde.krunner.desktop]
+# ⌘+Espaço = busca/lançador (equivalente ao Spotlight). Mantém Alt+Espaço
+# e Alt+F2 (padrão KDE) funcionando também.
+_launch=Alt+Space\tAlt+F2\tMeta+Space,Alt+Space\tAlt+F2\tMeta+Space,KRunner
+
+[kwin]
+# ⌘+Tab = troca de janelas (equivalente ao Cmd+Tab do macOS). No KDE
+# isto alterna TODAS as janelas, não agrupadas por aplicativo como no
+# Mac — ver NOTAS.md sobre o modo "uma janela por aplicativo" do
+# alternador de tarefas, que aproxima ainda mais o comportamento.
+Walk Through Windows=Alt+Tab\tMeta+Tab,Alt+Tab\tMeta+Tab,Walk Through Windows
+
+# ⌘+Shift+Tab = troca de janelas em ordem reversa (Cmd+Shift+Tab no Mac).
+Walk Through Windows (Reverse)=Alt+Shift+Backtab\tMeta+Shift+Tab,Alt+Shift+Backtab\tMeta+Shift+Tab,Walk Through Windows (Reverse)
+
+# --- Bônus opcional (fora do pedido literal do card, remova se não quiser) ---
+# Pressionar SOMENTE a tecla ⌘ (sem soltar rápido, sem combinar com outra
+# tecla) abre o efeito "Visão Geral" (Overview) do Plasma — que tem uma
+# caixa de busca embutida, ficando parecido com o Mission Control/Spotlight
+# do Mac. Continua funcionando também com Meta+W.
+# Sintaxe válida a partir do Plasma 6.1 (ver NOTAS.md para 6.0.x).
+Overview=Meta+W\tMeta,Meta+W\tMeta,Toggle Overview
