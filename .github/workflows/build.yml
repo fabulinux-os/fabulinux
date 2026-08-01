@@ -42,6 +42,9 @@ jobs:
         with:
           recipe: recipe.yml
           working_directory: ./fase2/bluebuild/
+          # --no-sign: primeiro build sem cosign (assinatura = TODO do Hugo).
+          # Sem isso, o BlueBuild aborta exigindo o par de chaves cosign.
+          build_opts: --no-sign
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           # Sem cosign_private_key/cosign_public_key de propósito: sem essas

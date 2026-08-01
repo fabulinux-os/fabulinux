@@ -18,6 +18,7 @@ on:
     branches: [main]
   workflow_dispatch: {} # permite gerar a ISO manualmente pela aba Actions
   push:
+    branches: [main]
     paths:
       - "fase2/bluebuild/disk_config/**"
       - ".github/workflows/build-iso.yml"
@@ -69,7 +70,7 @@ jobs:
 
       - name: Build da ISO (bootc-image-builder)
         id: build
-        uses: osbuild/bootc-image-builder-action@v1
+        uses: osbuild/bootc-image-builder-action@8661cd3832544ad68c12dcde8681b13ab0f56a8d # main
         with:
           builder-image: ${{ env.BIB_IMAGE }}
           config-file: ./fase2/bluebuild/disk_config/iso.toml
