@@ -31,7 +31,7 @@ env:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-iso:
@@ -83,6 +83,9 @@ jobs:
           image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
           types: anaconda-iso
+          # bootc-image-builder exige o tipo de rootfs; btrfs é o padrão do
+          # Fedora Atomic/Kinoite.
+          rootfs: btrfs
 
       # Saída: artefato do próprio run do Actions. Baixar em Actions > este
       # run > "Artifacts" (fica disponível por 30 dias, ver NOTAS-pipeline.md
