@@ -1,0 +1,33 @@
+# Config do bootc-image-builder para gerar a ISO instalável (Anaconda) do
+# Fabulinux — Card #17, Fase 2. Baseado no `disk_config/iso-kde.toml` do
+# template oficial `ublue-os/image-template` (variante KDE), com o comando de
+# pós-instalação apontado para a imagem do Fabulinux em vez do template.
+#
+# O kickstart abaixo roda dentro do instalador Anaconda, ao final da
+# instalação: ele troca o rootfs recém-instalado para consumir a IMAGEM OCI
+# publicada em ghcr (o mesmo destino do workflow build.yml), garantindo que
+# quem instalar pela ISO já fique atualizado (rebase atômico) e sob o mesmo
+# esquema de atualização "receita + rebuild" das decisões de produto.
+[customizations.installer.kickstart]
+contents = """
+%post
+bootc switch --mutate-in-place --transport registry ghcr.io/fabulinux-os/fabulinux:latest
+%end
+"""
+
+# Módulos do Anaconda habilitados/desabilitados. "Subscription" é específico
+# de RHEL (registro na Red Hat) e não se aplica ao Fabulinux — desabilitado.
+[customizations.installer.modules]
+enable = [
+  "org.fedoraproject.Anaconda.Modules.Storage",
+  "org.fedoraproject.Anaconda.Modules.Runtime",
+  "org.fedoraproject.Anaconda.Modules.Network",
+  "org.fedoraproject.Anaconda.Modules.Security",
+  "org.fedoraproject.Anaconda.Modules.Services",
+  "org.fedoraproject.Anaconda.Modules.Users",
+  "org.fedoraproject.Anaconda.Modules.Timezone"
+]
+
+disable = [
+  "org.fedoraproject.Anaconda.Modules.Subscription",
+]

@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# Receita BlueBuild do Fabulinux (Card #17, Fase 2).
+# Referências de decisão: fase2/docs/decisoes-produto.md e fase2/docs/escolha-base.md.
+#
+# Base: Fedora Kinoite (KDE Plasma 6, imutável via rpm-ostree/bootc) + codecs,
+# através da imagem `kinoite-main` da Universal Blue — ver escolha-base.md.
+name: fabulinux
+description: >-
+  Fabulinux — distro Linux para criativos: base Fedora Kinoite (KDE Plasma
+  6, imutável), codecs completos + VLC, e apps via Flatpak.
+
+# Imutabilidade forte (composefs + fs-verity, rollback atômico) é HERDADA da
+# base `kinoite-main` sem nenhuma alteração aqui — nenhum módulo desta receita
+# desativa o modo somente-leitura, e nada exige "layering" em runtime pelo
+# usuário: toda customização acontece em build-time, nesta receita, conforme
+# fase2/docs/decisoes-produto.md, seção 1.
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: 42 # Fedora 42, acompanha o ciclo do kinoite-main/ublue-os. Atualizar junto do upstream.
+
+modules:
+  # Codecs / multimídia: HERDADOS da base `kinoite-main`, que já vem com ffmpeg
+  # completo, GStreamer e aceleração de vídeo por hardware (VA-API/mesa-freeworld).
+  # Por isso NÃO fazemos layering rpm-ostree aqui — o que:
+  #   (a) mantém a imutabilidade máxima (decisoes-produto.md, seções 1 e 2 —
+  #       zero layering, tudo via imagem/Flatpak); e
+  #   (b) evita depender de repositórios de terceiros no build. (O repo
+  #       "fedora-multimedia"/negativo17 que a base traz chegou a retornar 404
+  #       para o Fedora 42, quebrando qualquer transação rpm-ostree.)
+  # O VLC entra como Flatpak, junto dos demais apps (ele já embute seus codecs).
+
+  # --- Flatpaks padrão (fase2/docs/decisoes-produto.md, seções 1 e 4) ---
+  #
+  # Curadoria completa dos IDs em `fase2/flatpak/apps.list` (card #6, ainda em
+  # PR #13 no momento em que este card foi escrito — os mesmos 21 IDs estão
+  # replicados aqui; se o card #6 mudar algum ID, sincronizar aqui também).
+  # Apps do usuário SEMPRE via Flatpak, nunca tocando a base (seção 1).
+  #
+  # Tier mínimo (2 núcleos/4 GB — seção 4): os apps pesados de vídeo/3D ficam
+  # DE FORA do `install:` por padrão. Como o Flathub já fica habilitado por
+  # este módulo, eles continuam instaláveis a qualquer momento pela loja de
+  # apps (Discover), sob demanda do usuário — sem tocar a base imutável.
+  - type: default-flatpaks
+    configurations:
+      - scope: system
+        notify: true
+        install:
+          # Ilustração / imagem raster e vetor
+          - org.kde.krita
+          - org.gimp.GIMP
+          - org.inkscape.Inkscape
+          # Editoração / diagramação
+          - net.scribus.Scribus
+          # Fotografia / revelação RAW
+          - org.darktable.Darktable
+          - com.rawtherapee.RawTherapee
+          - org.kde.digikam
+          # Áudio e música
+          - io.lmms.LMMS
+          - org.ardour.Ardour
+          - org.mixxx.Mixxx
+          - org.audacityteam.Audacity
+          # Produtividade / escritório / notas
+          - org.onlyoffice.desktopeditors
+          - md.obsidian.Obsidian
+          - org.kde.okular
+          # Multimídia (VLC embute seus próprios codecs)
+          - org.videolan.VLC
+          # Internet e comunicação
+          - org.mozilla.firefox
+          - org.gnome.Geary
+          # Utilitários do sistema
+          - org.gnome.FontManager
+          #
+          # --- Pesados (vídeo/3D) — de propósito NÃO pré-instalados ---
+          # Fazem parte do pacote completo do tier recomendado (4 núcleos/
+          # 8 GB+, decisoes-produto.md seção 4), mas ficam disponíveis via
+          # Flathub para instalação sob demanda, não na imagem por padrão:
+          #   org.blender.Blender      (modelagem/animação 3D)
+          #   org.kde.kdenlive         (edição de vídeo)
+          #   com.obsproject.Studio    (captura/streaming de vídeo)
+          #   fr.handbrake.ghb         (transcodificação de vídeo)

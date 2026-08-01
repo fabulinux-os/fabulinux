@@ -1,0 +1,58 @@
+name: build-fabulinux-image
+# Builda a imagem do Fabulinux (BlueBuild, ver fase2/bluebuild/recipes/recipe.yml)
+# e publica em ghcr.io. Card #17 (Fase 2).
+#
+# IMPORTANTE (leia fase2/NOTAS-pipeline.md): este workflow builda e publica a
+# imagem SEM exigir a chave de assinatura cosign — o primeiro build funciona
+# sem nenhum secret configurado. A assinatura cosign fica documentada como
+# passo futuro (o Hugo precisa gerar o par de chaves e cadastrar os secrets
+# COSIGN_PRIVATE_KEY / COSIGN_PUBLIC_KEY no repositório).
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "fase2/bluebuild/**"
+      - ".github/workflows/build.yml"
+      - ".github/workflows/build-iso.yml"
+  pull_request:
+    paths:
+      - "fase2/bluebuild/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch: # permite disparar manualmente pela aba Actions
+  schedule:
+    - cron: "0 6 * * *" # rebuild diário, acompanha atualizações do kinoite-main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  bluebuild:
+    name: Build e publicar imagem Fabulinux
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Build imagem customizada
+        uses: blue-build/github-action@v1.11
+        with:
+          recipe: recipe.yml
+          working_directory: ./fase2/bluebuild/
+          # --no-sign: primeiro build sem cosign (assinatura = TODO do Hugo).
+          # Sem isso, o BlueBuild aborta exigindo o par de chaves cosign.
+          build_opts: --no-sign
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+          # Sem cosign_private_key/cosign_public_key de propósito: sem essas
+          # entradas, o build roda e publica em ghcr sem exigir nenhum secret.
+          # TODO (Hugo): depois de gerar a chave cosign (`cosign generate-key-pair`)
+          # e cadastrar os secrets COSIGN_PRIVATE_KEY/COSIGN_PUBLIC_KEY no repo,
+          # adicionar aqui:
+          #   cosign_private_key: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          #   cosign_public_key: ${{ secrets.COSIGN_PUBLIC_KEY }}
+          # e reativar o módulo `type: signing` na recipe.yml.
+          maximize_build_space: true
