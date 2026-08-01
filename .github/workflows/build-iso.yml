@@ -60,6 +60,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
+      # O bootc-image-builder roda via `sudo` (root), que NÃO herda o login
+      # acima (feito para o usuário do runner). Sem isto, o pull da imagem
+      # privada em ghcr falha com "unauthorized / image not known".
+      - name: Login do root no ghcr
+        run: sudo podman login ghcr.io -u "${{ github.actor }}" --password "${{ github.token }}"
+
       - name: Preparar variáveis de ambiente
         run: |
           USER_UID=$(id -u)
