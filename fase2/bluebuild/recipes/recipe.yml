@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# Receita BlueBuild do Fabulinux (Card #17, Fase 2).
+# Referências de decisão: fase2/docs/decisoes-produto.md e fase2/docs/escolha-base.md.
+#
+# Base: Fedora Kinoite (KDE Plasma 6, imutável via rpm-ostree/bootc) + codecs,
+# através da imagem `kinoite-main` da Universal Blue — ver escolha-base.md.
+name: fabulinux
+description: >-
+  Fabulinux — distro Linux para criativos: base Fedora Kinoite (KDE Plasma
+  6, imutável), codecs completos + VLC, e apps via Flatpak.
+
+# Imutabilidade forte (composefs + fs-verity, rollback atômico) é HERDADA da
+# base `kinoite-main` sem nenhuma alteração aqui — nenhum módulo desta receita
+# desativa o modo somente-leitura, e nada exige "layering" em runtime pelo
+# usuário: toda customização acontece em build-time, nesta receita, conforme
+# fase2/docs/decisoes-produto.md, seção 1.
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: 42 # Fedora 42, acompanha o ciclo do kinoite-main/ublue-os. Atualizar junto do upstream.
+
+modules:
+  # Esqueleto mínimo do card #17: build funcional sobre a base escolhida,
+  # sem nenhuma customização ainda. Os módulos de codecs/VLC (RPM Fusion),
+  # Flatpaks padrão e a política de assinatura entram em commits seguintes
+  # deste mesmo card — ver fase2/NOTAS-pipeline.md para o estado atual.
+  - type: rpm-ostree
+    install:
+      - fastfetch # utilitário leve, só para validar que o módulo rpm-ostree roda
