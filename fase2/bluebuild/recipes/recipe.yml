@@ -19,10 +19,97 @@ base-image: ghcr.io/ublue-os/kinoite-main
 image-version: 42 # Fedora 42, acompanha o ciclo do kinoite-main/ublue-os. Atualizar junto do upstream.
 
 modules:
-  # Esqueleto mínimo do card #17: build funcional sobre a base escolhida,
-  # sem nenhuma customização ainda. Os módulos de codecs/VLC (RPM Fusion),
-  # Flatpaks padrão e a política de assinatura entram em commits seguintes
-  # deste mesmo card — ver fase2/NOTAS-pipeline.md para o estado atual.
   - type: rpm-ostree
     install:
       - fastfetch # utilitário leve, só para validar que o módulo rpm-ostree roda
+
+  # --- Codecs / multimídia (fase2/docs/decisoes-produto.md, seção 2) ---
+  #
+  # 1) Habilita os repositórios RPM Fusion (free + nonfree). As "-release" RPMs
+  #    só trazem os arquivos de repo + chaves GPG; instalá-las aqui deixa os
+  #    pacotes das etapas seguintes disponíveis, dentro do mesmo build.
+  #    `%OS_VERSION%` é a magic string do BlueBuild para a versão do Fedora.
+  - type: rpm-ostree
+    install:
+      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
+      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
+
+  # 2) ffmpeg completo + GStreamer (good/bad/ugly/libav) + aceleração de vídeo
+  #    por hardware (VA-API/VDPAU via mesa "freeworld") + VLC.
+  #    `remove` + `install` juntos reproduzem o "dnf swap" que a própria RPM
+  #    Fusion recomenda para trocar os pacotes "-free"/livres do Kinoite pelas
+  #    versões completas (ex.: ffmpeg-free -> ffmpeg, mesa-va-drivers ->
+  #    mesa-va-drivers-freeworld). Tudo em build-time — não afeta a
+  #    imutabilidade em runtime (decisoes-produto.md, seção 2).
+  - type: rpm-ostree
+    remove:
+      - ffmpeg-free
+      - mesa-va-drivers
+      - mesa-vdpau-drivers
+    install:
+      # ffmpeg completo (substitui o ffmpeg-free do Kinoite)
+      - ffmpeg
+      # GStreamer: plugins good/bad/ugly + libav (contêiner p/ codecs via ffmpeg)
+      - gstreamer1-plugins-base
+      - gstreamer1-plugins-good
+      - gstreamer1-plugins-good-extras
+      - gstreamer1-plugins-bad-free
+      - gstreamer1-plugins-bad-free-extras
+      - gstreamer1-plugins-bad-freeworld
+      - gstreamer1-plugins-ugly
+      - gstreamer1-libav
+      # Aceleração de vídeo por hardware (VA-API/VDPAU, mesa "freeworld")
+      - mesa-va-drivers-freeworld
+      - mesa-vdpau-drivers-freeworld
+      # Player universal
+      - vlc
+
+  # --- Flatpaks padrão (fase2/docs/decisoes-produto.md, seções 1 e 4) ---
+  #
+  # Curadoria completa dos IDs em `fase2/flatpak/apps.list` (card #6, ainda em
+  # PR #13 no momento em que este card foi escrito — os mesmos 21 IDs estão
+  # replicados aqui; se o card #6 mudar algum ID, sincronizar aqui também).
+  # Apps do usuário SEMPRE via Flatpak, nunca tocando a base (seção 1).
+  #
+  # Tier mínimo (2 núcleos/4 GB — seção 4): os apps pesados de vídeo/3D ficam
+  # DE FORA do `install:` por padrão. Como o Flathub já fica habilitado por
+  # este módulo, eles continuam instaláveis a qualquer momento pela loja de
+  # apps (Discover), sob demanda do usuário — sem tocar a base imutável.
+  - type: default-flatpaks
+    configurations:
+      - scope: system
+        notify: true
+        install:
+          # Ilustração / imagem raster e vetor
+          - org.kde.krita
+          - org.gimp.GIMP
+          - org.inkscape.Inkscape
+          # Editoração / diagramação
+          - net.scribus.Scribus
+          # Fotografia / revelação RAW
+          - org.darktable.Darktable
+          - com.rawtherapee.RawTherapee
+          - org.kde.digikam
+          # Áudio e música
+          - io.lmms.LMMS
+          - org.ardour.Ardour
+          - org.mixxx.Mixxx
+          - org.audacityteam.Audacity
+          # Produtividade / escritório / notas
+          - org.onlyoffice.desktopeditors
+          - md.obsidian.Obsidian
+          - org.kde.okular
+          # Internet e comunicação
+          - org.mozilla.firefox
+          - org.gnome.Geary
+          # Utilitários do sistema
+          - org.gnome.FontManager
+          #
+          # --- Pesados (vídeo/3D) — de propósito NÃO pré-instalados ---
+          # Fazem parte do pacote completo do tier recomendado (4 núcleos/
+          # 8 GB+, decisoes-produto.md seção 4), mas ficam disponíveis via
+          # Flathub para instalação sob demanda, não na imagem por padrão:
+          #   org.blender.Blender      (modelagem/animação 3D)
+          #   org.kde.kdenlive         (edição de vídeo)
+          #   com.obsproject.Studio    (captura/streaming de vídeo)
+          #   fr.handbrake.ghb         (transcodificação de vídeo)
