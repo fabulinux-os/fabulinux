@@ -1,0 +1,50 @@
+# fase2/flatpak/apps.list
+#
+# Curadoria de apps do Fabulinux — Fase 2 (Card #6).
+# Um Application ID (Flatpak) por linha. Linhas em branco e linhas
+# iniciadas com "#" são ignoradas por install-apps.sh.
+#
+# IDs conferidos manualmente na página de cada app no Flathub
+# (https://flathub.org) em 2026-07-31. Se o Flathub renomear/mover um
+# ID no futuro, atualize aqui e em NOTAS.md.
+
+# --- Ilustração e edição de imagem raster/vetor ---
+org.kde.krita
+org.gimp.GIMP
+org.inkscape.Inkscape
+
+# --- Editoração / diagramação ---
+net.scribus.Scribus
+
+# --- Modelagem e animação 3D ---
+org.blender.Blender
+
+# --- Fotografia / revelação RAW ---
+org.darktable.Darktable
+com.rawtherapee.RawTherapee
+org.kde.digikam
+
+# --- Edição e captura de vídeo ---
+org.kde.kdenlive
+com.obsproject.Studio
+fr.handbrake.ghb
+# DaVinci Resolve (Blackmagic Design) NÃO está no Flathub — não incluído
+# aqui. Ver "DaVinci Resolve" em NOTAS.md para a alternativa.
+
+# --- Áudio e música ---
+io.lmms.LMMS
+org.ardour.Ardour
+org.mixxx.Mixxx
+org.audacityteam.Audacity
+
+# --- Produtividade / escritório / notas ---
+org.onlyoffice.desktopeditors
+md.obsidian.Obsidian
+org.kde.okular
+
+# --- Internet e comunicação ---
+org.mozilla.firefox
+org.gnome.Geary
+
+# --- Utilitários do sistema ---
+org.gnome.FontManager
