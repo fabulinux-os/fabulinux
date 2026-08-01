@@ -19,50 +19,15 @@ base-image: ghcr.io/ublue-os/kinoite-main
 image-version: 42 # Fedora 42, acompanha o ciclo do kinoite-main/ublue-os. Atualizar junto do upstream.
 
 modules:
-  - type: rpm-ostree
-    install:
-      - fastfetch # utilitário leve, só para validar que o módulo rpm-ostree roda
-
-  # --- Codecs / multimídia (fase2/docs/decisoes-produto.md, seção 2) ---
-  #
-  # 1) Habilita os repositórios RPM Fusion (free + nonfree). As "-release" RPMs
-  #    só trazem os arquivos de repo + chaves GPG; instalá-las aqui deixa os
-  #    pacotes das etapas seguintes disponíveis, dentro do mesmo build.
-  #    `%OS_VERSION%` é a magic string do BlueBuild para a versão do Fedora.
-  - type: rpm-ostree
-    install:
-      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
-      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
-
-  # 2) ffmpeg completo + GStreamer (good/bad/ugly/libav) + aceleração de vídeo
-  #    por hardware (VA-API/VDPAU via mesa "freeworld") + VLC.
-  #    `remove` + `install` juntos reproduzem o "dnf swap" que a própria RPM
-  #    Fusion recomenda para trocar os pacotes "-free"/livres do Kinoite pelas
-  #    versões completas (ex.: ffmpeg-free -> ffmpeg, mesa-va-drivers ->
-  #    mesa-va-drivers-freeworld). Tudo em build-time — não afeta a
-  #    imutabilidade em runtime (decisoes-produto.md, seção 2).
-  - type: rpm-ostree
-    remove:
-      - ffmpeg-free
-      - mesa-va-drivers
-      - mesa-vdpau-drivers
-    install:
-      # ffmpeg completo (substitui o ffmpeg-free do Kinoite)
-      - ffmpeg
-      # GStreamer: plugins good/bad/ugly + libav (contêiner p/ codecs via ffmpeg)
-      - gstreamer1-plugins-base
-      - gstreamer1-plugins-good
-      - gstreamer1-plugins-good-extras
-      - gstreamer1-plugins-bad-free
-      - gstreamer1-plugins-bad-free-extras
-      - gstreamer1-plugins-bad-freeworld
-      - gstreamer1-plugins-ugly
-      - gstreamer1-libav
-      # Aceleração de vídeo por hardware (VA-API/VDPAU, mesa "freeworld")
-      - mesa-va-drivers-freeworld
-      - mesa-vdpau-drivers-freeworld
-      # Player universal
-      - vlc
+  # Codecs / multimídia: HERDADOS da base `kinoite-main`, que já vem com ffmpeg
+  # completo, GStreamer e aceleração de vídeo por hardware (VA-API/mesa-freeworld).
+  # Por isso NÃO fazemos layering rpm-ostree aqui — o que:
+  #   (a) mantém a imutabilidade máxima (decisoes-produto.md, seções 1 e 2 —
+  #       zero layering, tudo via imagem/Flatpak); e
+  #   (b) evita depender de repositórios de terceiros no build. (O repo
+  #       "fedora-multimedia"/negativo17 que a base traz chegou a retornar 404
+  #       para o Fedora 42, quebrando qualquer transação rpm-ostree.)
+  # O VLC entra como Flatpak, junto dos demais apps (ele já embute seus codecs).
 
   # --- Flatpaks padrão (fase2/docs/decisoes-produto.md, seções 1 e 4) ---
   #
@@ -99,6 +64,8 @@ modules:
           - org.onlyoffice.desktopeditors
           - md.obsidian.Obsidian
           - org.kde.okular
+          # Multimídia (VLC embute seus próprios codecs)
+          - org.videolan.VLC
           # Internet e comunicação
           - org.mozilla.firefox
           - org.gnome.Geary
