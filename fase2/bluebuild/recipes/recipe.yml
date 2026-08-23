@@ -16,7 +16,7 @@ description: >-
 # usuário: toda customização acontece em build-time, nesta receita, conforme
 # fase2/docs/decisoes-produto.md, seção 1.
 base-image: ghcr.io/ublue-os/kinoite-main
-image-version: 42 # Fedora 42, acompanha o ciclo do kinoite-main/ublue-os. Atualizar junto do upstream.
+image-version: latest # Segue o kinoite-main mais recente (hoje Fedora 44). NÃO fixar em tag numérica: a ublue remove tags antigas (a `42` sumiu e quebrou o build); `latest` não some.
 
 modules:
   # Codecs / multimídia: HERDADOS da base `kinoite-main`, que já vem com ffmpeg
