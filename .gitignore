@@ -20,3 +20,6 @@ Thumbs.db
 # Temporários
 *.log
 *.tmp
+
+# worktrees temporários de agentes
+.claude/worktrees/

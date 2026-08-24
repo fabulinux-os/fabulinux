@@ -80,3 +80,17 @@ modules:
           #   org.kde.kdenlive         (edição de vídeo)
           #   com.obsproject.Studio    (captura/streaming de vídeo)
           #   fr.handbrake.ghb         (transcodificação de vídeo)
+
+  # --- Identidade: nome do sistema (card #20) ---
+  # Faz `cat /etc/os-release` mostrar Fabulinux em vez de Fedora. NÃO mexemos em
+  # ID (mudar ID quebra COPR/rpm-ostree). Rodado por último, como recomenda a doc.
+  - type: os-release
+    properties:
+      NAME: Fabulinux
+      PRETTY_NAME: "Fabulinux (base Fedora Kinoite)"
+      VARIANT: Fabulinux
+      VARIANT_ID: fabulinux
+      HOME_URL: "https://fabulinux-os.github.io/fabulinux/"
+      DOCUMENTATION_URL: "https://github.com/fabulinux-os/fabulinux"
+      SUPPORT_URL: "https://github.com/fabulinux-os/fabulinux/issues"
+      BUG_REPORT_URL: "https://github.com/fabulinux-os/fabulinux/issues"
