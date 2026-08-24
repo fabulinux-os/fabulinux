@@ -63,6 +63,12 @@ jobs:
       - name: Normalizar registry para minúsculas
         run: echo "IMAGE_REGISTRY=$(echo "${IMAGE_REGISTRY}" | tr '[:upper:]' '[:lower:]')" >> "${GITHUB_ENV}"
 
+      # O Titanoboa monta a imagem via `sudo podman run --mount type=image,source=...`,
+      # que exige a imagem JÁ presente no storage do root (não puxa a privada sozinho).
+      # Por isso pré-baixamos aqui, autenticados como root.
+      - name: Pré-baixar a imagem no storage do root
+        run: sudo podman pull "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+
       - name: Build da Live ISO (Titanoboa)
         id: build
         uses: ublue-os/titanoboa@main
