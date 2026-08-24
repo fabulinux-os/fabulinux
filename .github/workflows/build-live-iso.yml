@@ -69,24 +69,21 @@ jobs:
       - name: Pré-baixar a imagem no storage do root
         run: sudo podman pull "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
 
-      # A action roda `realpath` no iso-dest ANTES de mover a ISO; o diretório
-      # de destino precisa existir, senão falha com "No such file or directory".
-      - name: Preparar diretório de saída
-        run: mkdir -p "${{ github.workspace }}/output"
-
       - name: Build da Live ISO (Titanoboa)
         id: build
         uses: ublue-os/titanoboa@main
         with:
           image-ref: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          # O nome DEVE bater com o `label` do iso.yaml (o Titanoboa gera <label>.iso).
-          iso-dest: ${{ github.workspace }}/output/Fabulinux-Live.iso
+          # Nome = <label>.iso do iso.yaml. FORA do workspace (em runner.temp):
+          # a lógica de realpath da action colide quando o destino fica dentro do
+          # workspace e acaba fazendo `mv` do arquivo para ele mesmo.
+          iso-dest: ${{ runner.temp }}/Fabulinux-Live.iso
 
       - name: Publicar Live ISO como artefato
         uses: actions/upload-artifact@v4
         with:
           name: fabulinux-live-iso
-          path: ${{ github.workspace }}/output/Fabulinux-Live.iso
+          path: ${{ runner.temp }}/Fabulinux-Live.iso
           if-no-files-found: error
           compression-level: 0
           retention-days: 30
