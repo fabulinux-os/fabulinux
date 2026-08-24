@@ -84,6 +84,48 @@ modules:
               initrd: "/images/pxeboot/initrd.img"
         ISOYAML
 
+  # --- Live ISO: tornar a imagem "bootável ao vivo" (card #21) ---
+  # Portado do exemplo oficial do Titanoboa (ublue-os/titanoboa, zirconium):
+  # dracut-live no initramfs, livesys (sessão live/autologin KDE) e os arquivos
+  # EFI em /boot/efi que o build da ISO espera copiar.
+  - type: script
+    snippets:
+      - |
+        set -euxo pipefail
+        # O repo negativo17/fedora-multimedia da base pode dar 404; desabilita p/ o dnf não quebrar.
+        sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/*fedora-multimedia*.repo 2>/dev/null || true
+        # Kernel presente na imagem (sem depender de jq)
+        kernel=""
+        for k in /usr/lib/modules/*/; do [ -f "${k}vmlinuz" ] && kernel="$(basename "$k")"; done
+        [ -n "$kernel" ] || { echo "kernel nao encontrado" >&2; exit 1; }
+        # 1) Suporte a live: dracut-live + initramfs com dmsquash-live
+        dnf install -y dracut-live
+        DRACUT_NO_XATTR=1 dracut -v --force --zstd --reproducible --no-hostonly \
+            --add "dmsquash-live dmsquash-live-autooverlay" \
+            "/usr/lib/modules/${kernel}/initramfs.img" "${kernel}"
+        # 2) Sessão live (autologin), configurada para KDE
+        dnf install -y livesys-scripts
+        sed -i 's/^livesys_session=.*/livesys_session=kde/' /etc/sysconfig/livesys 2>/dev/null || true
+        systemctl enable livesys.service livesys-late.service
+        # 3) EFI de boot da ISO (o Titanoboa copia de /boot/efi/EFI)
+        dnf install -y grub2-efi-x64-cdboot
+        mkdir -p /boot/efi
+        cp -av /usr/lib/efi/*/*/EFI /boot/efi/
+        cp -v /boot/efi/EFI/fedora/grubx64.efi /boot/efi/EFI/BOOT/fbx64.efi
+        # 4) /var/tmp maior no live (ostree precisa de espaço temporário)
+        tee /etc/systemd/system/var-tmp.mount >/dev/null <<'MNT'
+        [Unit]
+        Description=Larger tmpfs for /var/tmp on live system
+        [Mount]
+        What=tmpfs
+        Where=/var/tmp
+        Type=tmpfs
+        Options=size=50%%,nr_inodes=1m
+        [Install]
+        WantedBy=local-fs.target
+        MNT
+        systemctl enable var-tmp.mount
+
   # --- Identidade: nome do sistema (card #20) ---
   # Faz `cat /etc/os-release` mostrar Fabulinux em vez de Fedora. NÃO mexemos em
   # ID (mudar ID quebra COPR/rpm-ostree). Rodado por último, como recomenda a doc.
