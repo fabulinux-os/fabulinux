@@ -45,41 +45,44 @@ modules:
       - scope: system
         notify: true
         install:
-          # Ilustração / imagem raster e vetor
-          - org.kde.krita
-          - org.gimp.GIMP
-          - org.inkscape.Inkscape
-          # Editoração / diagramação
-          - net.scribus.Scribus
-          # Fotografia / revelação RAW
-          - org.darktable.Darktable
-          - com.rawtherapee.RawTherapee
-          - org.kde.digikam
-          # Áudio e música
-          - io.lmms.LMMS
-          - org.ardour.Ardour
-          - org.mixxx.Mixxx
-          - org.audacityteam.Audacity
-          # Produtividade / escritório / notas
-          - org.onlyoffice.desktopeditors
-          - md.obsidian.Obsidian
-          - org.kde.okular
-          # Multimídia (VLC embute seus próprios codecs)
-          - org.videolan.VLC
-          # Internet e comunicação
-          - org.mozilla.firefox
-          - org.gnome.Geary
-          # Utilitários do sistema
-          - org.gnome.FontManager
+          # Núcleo ENXUTO para o primeiro boot ("não precisa todos de cara").
+          # O resto da curadoria fica a 1 clique na loja (Discover/Flathub).
+          - org.mozilla.firefox            # navegador
+          - org.gnome.Geary                # e-mail simples
+          - org.onlyoffice.desktopeditors  # escritório
+          - org.kde.krita                  # design/ilustração (carro-chefe)
+          - org.videolan.VLC               # mídia (embute seus codecs)
+          - md.obsidian.Obsidian           # notas/escrita
+          - org.gnome.FontManager          # gerenciar fontes
           #
-          # --- Pesados (vídeo/3D) — de propósito NÃO pré-instalados ---
-          # Fazem parte do pacote completo do tier recomendado (4 núcleos/
-          # 8 GB+, decisoes-produto.md seção 4), mas ficam disponíveis via
-          # Flathub para instalação sob demanda, não na imagem por padrão:
-          #   org.blender.Blender      (modelagem/animação 3D)
-          #   org.kde.kdenlive         (edição de vídeo)
-          #   com.obsproject.Studio    (captura/streaming de vídeo)
-          #   fr.handbrake.ghb         (transcodificação de vídeo)
+          # --- Disponíveis sob demanda na loja (NÃO pré-instalados) ---
+          # Design/foto: org.gimp.GIMP · org.inkscape.Inkscape · net.scribus.Scribus
+          #              org.darktable.Darktable · com.rawtherapee.RawTherapee · org.kde.digikam
+          # Áudio:       io.lmms.LMMS · org.ardour.Ardour · org.mixxx.Mixxx · org.audacityteam.Audacity
+          # Vídeo/3D:    org.blender.Blender · org.kde.kdenlive · com.obsproject.Studio · fr.handbrake.ghb
+          # (org.kde.okular já vem na base KDE)
+
+  # --- Live ISO: config do Titanoboa (card #21) ---
+  # O Titanoboa exige /usr/lib/bootc-image-builder/iso.yaml DENTRO da imagem
+  # (define o rótulo da ISO e as entradas do GRUB do live). Escrito via snippet
+  # para ficar autocontido, sem depender de arquivos externos.
+  - type: script
+    snippets:
+      - |
+        set -euo pipefail
+        mkdir -p /usr/lib/bootc-image-builder
+        tee /usr/lib/bootc-image-builder/iso.yaml >/dev/null <<'ISOYAML'
+        label: "Fabulinux-Live"
+        grub2:
+          timeout: 10
+          entries:
+            - name: "Fabulinux Live"
+              linux: "/images/pxeboot/vmlinuz quiet rhgb root=live:CDLABEL=Fabulinux-Live enforcing=0 rd.live.image"
+              initrd: "/images/pxeboot/initrd.img"
+            - name: "Fabulinux Live (modo grafico seguro)"
+              linux: "/images/pxeboot/vmlinuz quiet rhgb root=live:CDLABEL=Fabulinux-Live enforcing=0 rd.live.image nomodeset"
+              initrd: "/images/pxeboot/initrd.img"
+        ISOYAML
 
   # --- Identidade: nome do sistema (card #20) ---
   # Faz `cat /etc/os-release` mostrar Fabulinux em vez de Fedora. NÃO mexemos em
