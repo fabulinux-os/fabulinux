@@ -74,7 +74,8 @@ jobs:
         uses: ublue-os/titanoboa@main
         with:
           image-ref: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          iso-dest: ${{ github.workspace }}/output/fabulinux-live.iso
+          # O nome DEVE bater com o `label` do iso.yaml (o Titanoboa gera <label>.iso).
+          iso-dest: ${{ github.workspace }}/output/Fabulinux-Live.iso
 
       - name: Publicar Live ISO como artefato
         uses: actions/upload-artifact@v4
