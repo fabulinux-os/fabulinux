@@ -34,7 +34,7 @@ jobs:
     # Se disparado por workflow_run (após o build da imagem), só segue em caso de sucesso.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     permissions:
-      contents: read
+      contents: write   # publicar a ISO como Release (download público e retomável)
       packages: read
     steps:
       - name: Checkout
@@ -87,3 +87,17 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 30
+
+      # Publica a ISO como Release: URL pública, ESTÁVEL e RETOMÁVEL — ao contrário
+      # do artefato do Actions, que não permite retomar o download em rede instável.
+      # Tag fixa "live-latest" recriada a cada build → o link é sempre o mesmo.
+      - name: Publicar a ISO como Release (download retomável)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="live-latest"
+          gh release delete "$TAG" --repo "${{ github.repository }}" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" "${{ runner.temp }}/Fabulinux-Live.iso" \
+            --repo "${{ github.repository }}" \
+            --title "Fabulinux Live (preview)" \
+            --notes "Live ISO de preview. Boote em live para experimentar antes de instalar. Secure Boot deve estar desativado. Alvo minimo: 2 nucleos / 4 GB."
