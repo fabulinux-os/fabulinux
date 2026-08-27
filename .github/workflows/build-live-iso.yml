@@ -95,9 +95,28 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+          cd "${{ runner.temp }}"
+          # Assets de Release têm limite de 2 GB/arquivo; dividimos a ISO em partes de 1,9 GB.
+          sha256sum Fabulinux-Live.iso > Fabulinux-Live.iso.sha256
+          split -b 1900m Fabulinux-Live.iso Fabulinux-Live.iso.part-
+          parts=$(ls Fabulinux-Live.iso.part-*)
+          win_join=$(printf '%s + ' $parts | sed 's/ + $//')
+          {
+            echo "A ISO foi dividida em partes (limite de 2 GB/arquivo no GitHub)."
+            echo "Baixe TODAS as partes (Fabulinux-Live.iso.part-*) e remonte numa so:"
+            echo
+            echo "Windows (cmd, na pasta das partes):"
+            echo "  copy /b $win_join Fabulinux-Live.iso"
+            echo
+            echo "Linux/macOS:"
+            echo "  cat Fabulinux-Live.iso.part-* > Fabulinux-Live.iso"
+            echo
+            echo "Conferir a integridade (opcional): sha256sum -c Fabulinux-Live.iso.sha256"
+          } > REJOIN.txt
           TAG="live-latest"
           gh release delete "$TAG" --repo "${{ github.repository }}" --yes --cleanup-tag 2>/dev/null || true
-          gh release create "$TAG" "${{ runner.temp }}/Fabulinux-Live.iso" \
+          gh release create "$TAG" Fabulinux-Live.iso.part-* Fabulinux-Live.iso.sha256 REJOIN.txt \
             --repo "${{ github.repository }}" \
             --title "Fabulinux Live (preview)" \
-            --notes "Live ISO de preview. Boote em live para experimentar antes de instalar. Secure Boot deve estar desativado. Alvo minimo: 2 nucleos / 4 GB."
+            --notes "Live ISO de preview, dividida em partes (limite de 2 GB/arquivo no GitHub). Baixe TODAS as .part-* e remonte (veja REJOIN.txt). Boote em live; Secure Boot desativado; minimo 2 nucleos / 4 GB."
